@@ -26359,6 +26359,18 @@ var stage = new PIXI.Container();
 // var k = 1;
 
 viewport.addChild(stage);
+var texture = PIXI.Texture.fromImage('../images/bunny.gif');
+// create a new Sprite using the texture
+var bunny = new PIXI.Sprite(texture);
+
+bunny.anchor.x = 0.5;
+bunny.anchor.y = 0.5;
+
+// move the sprite t the center of the screen
+bunny.position.x = 200;
+bunny.position.y = 150;
+
+stage.addChild(bunny);
 
 // constructStage(map, null);
 
@@ -26371,6 +26383,10 @@ function animate() {
 	// start the timer for the next animation loop
 	requestAnimationFrame(animate);
 
+	bunny.rotation += 0.1;
+
+	// render the stage  
+	renderer.render(stage);
 	// this is the main render call that makes pixi draw your container and its children.
 	renderer.render(viewport);
 }
