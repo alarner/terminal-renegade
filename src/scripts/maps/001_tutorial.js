@@ -24,7 +24,6 @@ module.exports = {
 		    // create a new Sprite using the texture
 		var sprite = new PIXI.Sprite(texture);
 		//var paranoia = new PIXI.Sprite(paranoiaTexture);
-		console.log(this);
 
 		sprite.anchor.x = 0.5;
 		sprite.anchor.y = 0.5;
@@ -51,16 +50,28 @@ module.exports = {
 	root:{
 		name: '/',
 		created: true,
+		type: 'directory',
 		items: [],
 		children: [
 			{
-				name: 'usr',
+				name: 'file',
 				created: false,
+				type: 'file',
+				items: [],
+				children: [], // nodes go here
+				itemsVisible: true,
+				messages: []
+			},
+			{
+				name: 'usr',
+				created: true,
+				type: 'directory',
 				items: [],
 				children: [
 					{
 						name: 'a',
 						created: false,
+						type: 'directory',
 						items: [],
 						children: [
 							
@@ -71,6 +82,7 @@ module.exports = {
 					{
 						name: 'b',
 						created: false,
+						type: 'directory',
 						items: [],
 						children: [
 							
@@ -85,6 +97,7 @@ module.exports = {
 			{
 				name: 'var',
 				created: true,
+				type: 'directory',
 
 				// var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
     // 			var paranoia = new PIXI.Sprite(paranoiaTexture);

@@ -29,7 +29,6 @@ module.exports = React.createClass({
 		Backbone.history.start();
 	},
 	render: function() {
-		console.log('render', this.state.page);
 		var storyStyle = {
 			display: this.state.page === 'story' ? 'block' : 'none'
 		};

@@ -48,13 +48,14 @@ module.exports = React.createClass({
 			return;
 		}
 
-		var commandOutput = commands[command](args, this.props.gameState);
+		var commandOutput = commands[command](args, this.props.gameState, this.props.level);
 		if(commandOutput) {
 			this.say(commandOutput);
 		}
 	},
 
 	say: function(message) {
+		console.log(message);
 		this.props.gameState.set({chatText: message});
 	}
 });

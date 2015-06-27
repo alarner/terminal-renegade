@@ -42,6 +42,7 @@ module.exports = React.createClass({
 		this.refs.pixiLevel.getDOMNode().appendChild(
 			this.state.level.renderer.view
 		);
+
 		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
 		var activeNodeTexture = PIXI.Texture.fromImage("../images/active_node.png");
 		var activeConnectorTexture = PIXI.Texture.fromImage("../images/active_connector.png");
@@ -63,10 +64,11 @@ module.exports = React.createClass({
 		this.state.home.stage.addChild(activeNode);
 		this.state.home.stage.addChild(activeConnector);
 
+		this.state.gameState.on('change', this.redrawGame);
+
 		this.animate();
 	},
 	render: function() {
-		console.log("im getting called");
 		var homeStyle = {
 			display: this.state.page === 'home' ? 'block' :'none'
 		};
@@ -111,13 +113,13 @@ module.exports = React.createClass({
 			self.state.gameState.clear({silent: true});
 			self.setState(function(previousState) {
 
-				console.log(self.getLevel(level));
 				previousState.page = 'level';
 				previousState.gameState.set({
 					currentNode: self.getLevel(level).root,
-					character: character
+					character: character,
+					commandsAvailable: ['cd'],
+					level: self.getLevel(level)
 				});
-				console.log(previousState.gameState);
 				previousState.level.number = level;
 				return previousState;
 				// page: 'level',
@@ -171,18 +173,21 @@ module.exports = React.createClass({
 		}
 		return height;
 	},
-	redrawGame: function() {
+	redrawGame: function(gameState) {
+		gameState = gameState || this.state.gameState;
 		var level = this.getLevel();
 		// Draw map
-		this.drawNode(level.root);
+		if(level && level.root) {
+			this.drawNode(level.root);
+		}
 
 		// Place character
-		var character = this.state.gameState.get('character');
+		var character = gameState.get('character');
 		this.state.level.stage.addChild(character);
-		var currentNode = this.state.gameState.get('currentNode');
-		character.position = currentNode._display.position;
-
-
+		var currentNode = gameState.get('currentNode');
+		if(currentNode && currentNode._display) {
+			character.position = currentNode._display.position;
+		}
 	},
 	generateNode: function(node, defaultDisplay) {
 		if(node._display) return node._display;
