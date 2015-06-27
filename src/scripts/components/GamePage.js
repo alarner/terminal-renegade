@@ -43,26 +43,7 @@ module.exports = React.createClass({
 			this.state.level.renderer.view
 		);
 
-		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
-		var activeNodeTexture = PIXI.Texture.fromImage("../images/active_node.png");
-		var activeConnectorTexture = PIXI.Texture.fromImage("../images/active_connector.png");
-		var activeNode = new PIXI.Sprite(activeNodeTexture);
-		var activeConnector = new PIXI.Sprite(activeConnectorTexture);
-		activeConnector.position.y = 140;
-		activeConnector.position.x = 130;
-		activeConnector.rotation = 5.5;
-
-		var position = 0;
-		for(var i = 0; i < 17; i++){
-			var background = new PIXI.Sprite(texture);
-			background.position.y = position;
-			position += 47;
-			console.log(background)
-			this.state.home.stage.addChild(background);
-		}
-		
-		this.state.home.stage.addChild(activeNode);
-		this.state.home.stage.addChild(activeConnector);
+		this.addHomePage();
 
 		this.state.gameState.on('change', this.redrawGame);
 
@@ -247,5 +228,35 @@ module.exports = React.createClass({
 		else if(this.state.page === 'level') {
 			this.state.level.renderer.render(this.state.level.viewport);
 		}
+	},
+	addHomePage: function(){
+		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
+		var activeNodeTexture = PIXI.Texture.fromImage("../images/active_node.png");
+		var activeConnectorTexture = PIXI.Texture.fromImage("../images/active_connector.png");
+
+		var activeNode = new PIXI.Sprite(activeNodeTexture);
+
+		var activeNode2 = new PIXI.Sprite(activeNodeTexture);
+		activeNode2.position.x = 200;
+		activeNode2.position.y = 200;
+
+		var activeConnector = new PIXI.Sprite(activeConnectorTexture);
+		activeConnector.position.y = 140;
+		activeConnector.position.x = 130;
+		activeConnector.rotation = 5.5;
+
+		var position = 0;
+		for(var i = 0; i < 17; i++){
+			var background = new PIXI.Sprite(texture);
+			background.position.y = position;
+			position += 47;
+			console.log(background)
+			this.state.home.stage.addChild(background);
+		}
+		
+		this.state.home.stage.addChild(activeNode);
+		this.state.home.stage.addChild(activeConnector);
+		this.state.home.stage.addChild(activeNode2);
+
 	}
 });
