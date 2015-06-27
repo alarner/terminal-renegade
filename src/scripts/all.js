@@ -71289,6 +71289,7 @@ var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
 	display: function display() {
+		console.log('display', this);
 		// var graphics = new PIXI.Graphics();
 		// graphics.beginFill(0xFFFF00);
 		// // set the line style to have a width of 5 and set the color to red
@@ -71296,7 +71297,14 @@ module.exports = {
 		// // draw a rectangle
 		// graphics.drawRect(0, 0, globals.node.size.width-5, globals.node.size.height-5);
 		// return graphics;
-		var texture = PIXI.Texture.fromImage('../images/active_node.png');
+		var texture;
+
+		if (this.created) {
+			texture = PIXI.Texture.fromImage('../images/active_node.png');
+		} else {
+			texture = PIXI.Texture.fromImage('../images/inactive_node.png');
+		}
+
 		//var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
 		// create a new Sprite using the texture
 		var sprite = new PIXI.Sprite(texture);
@@ -71326,18 +71334,22 @@ module.exports = {
 	},
 	root: {
 		name: '/',
+		created: true,
 		items: [],
 		children: [{
 			name: 'usr',
+			created: false,
 			items: [],
 			children: [{
 				name: 'a',
+				created: false,
 				items: [],
 				children: [], // nodes go here
 				itemsVisible: true,
 				messages: []
 			}, {
 				name: 'b',
+				created: false,
 				items: [],
 				children: [], // nodes go here
 				itemsVisible: true,
@@ -71347,6 +71359,7 @@ module.exports = {
 			messages: []
 		}, {
 			name: 'var',
+			created: true,
 
 			// var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
 			// 			var paranoia = new PIXI.Sprite(paranoiaTexture);
