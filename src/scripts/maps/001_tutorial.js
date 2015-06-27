@@ -42,6 +42,10 @@ module.exports = {
 			},
 			{
 				name: 'var',
+
+				// var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
+    // 			var paranoia = new PIXI.Sprite(paranoiaTexture);
+
 				display: function() {
 					var graphics = new PIXI.Graphics();
 					graphics.beginFill(0xFF00FF);
@@ -51,7 +55,8 @@ module.exports = {
 					graphics.drawRect(0, 0, globals.node.size.width-5, globals.node.size.height-5);
 					return graphics;
 				},
-				items: [],
+				items: [
+				],
 				children: [
 					
 				], // nodes go here
@@ -64,3 +69,4 @@ module.exports = {
 	}
 }
 
+// items are like icons

@@ -17,22 +17,34 @@ game.startLevel(level1);
  // kick off the animation loop (defined below)
 
 var texture = PIXI.Texture.fromImage("../images/bunny.gif");
+var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
     // create a new Sprite using the texture
 var bunny = new PIXI.Sprite(texture);
+var paranoia = new PIXI.Sprite(paranoiaTexture);
 
 bunny.anchor.x = 0.5;
 bunny.anchor.y = 0.5;
 
-// move the sprite t the center of the screen
+paranoia.anchor.x = 0.5;
+paranoia.anchor.y = 0.5;
+
+// move the sprite to the center of the screen
 bunny.position.x = 200;
-bunny.position.y = 150;
+bunny.position.y = 200;
+
+paranoia.position.x = 200;
+paranoia.position.y = 200;
 
 
 bunny.scale.x = 0.5;
 bunny.scale.y = 0.5;
 
+paranoia.scale.x = 0.2;
+paranoia.scale.y = 0.2;
+
 
 stage.addChild(bunny);
+stage.addChild(paranoia);
 
 animate();
 
