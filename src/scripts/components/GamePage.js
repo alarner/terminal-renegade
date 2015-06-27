@@ -137,7 +137,7 @@ module.exports = React.createClass({
 		x = x || 0;
 		y = y || 0;
 
-		var parent = node.display ? node.display() : defaultDisplay();
+		var parent = node.display ? node.display() : defaultDisplay.call(node);
 		parent.position.x = x + width/2;
 		parent.position.y = y + globals.node.size.height/2;
 

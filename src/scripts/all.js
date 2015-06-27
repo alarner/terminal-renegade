@@ -30126,7 +30126,7 @@ module.exports={
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GoodBoyDigital/pixi.js.git"
+    "url": "https://github.com/GoodBoyDigital/pixi.js.git"
   },
   "scripts": {
     "test": "gulp && testem ci",
@@ -30192,8 +30192,7 @@ module.exports={
     "tarball": "http://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz",
-  "readme": "ERROR: No README data found!"
+  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
 }
 
 },{}],23:[function(require,module,exports){
@@ -71196,7 +71195,7 @@ module.exports = React.createClass({
 		x = x || 0;
 		y = y || 0;
 
-		var parent = node.display ? node.display() : defaultDisplay();
+		var parent = node.display ? node.display() : defaultDisplay.call(node);
 		parent.position.x = x + width / 2;
 		parent.position.y = y + globals.node.size.height / 2;
 
