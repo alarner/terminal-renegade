@@ -44,6 +44,7 @@ module.exports = React.createClass({
 		this.animate();
 	},
 	render: function() {
+		console.log("im getting called");
 		var homeStyle = {
 			display: this.state.page === 'home' ? 'block' :'none'
 		};
@@ -153,8 +154,9 @@ module.exports = React.createClass({
 			}
 			var child = this.drawNode(node.children[i], defaultDisplay, newX, newY);
 			previousNode = node.children[i];
-			this.drawLine(parent, child);
+			this.state.level.stage.swapChildren(this.drawLine(parent, child), parent);
 		}
+		
 		return parent;
 	},
 	drawLine: function(parent, child){
@@ -162,8 +164,10 @@ module.exports = React.createClass({
 		graphics.lineStyle(3, 0xFF0000);
 		graphics.moveTo(parent.position.x, parent.position.y);
 		graphics.lineTo(child.position.x, child.position.y);
-		// graphics.beginFill(0xFF0000);
 		this.state.level.stage.addChild(graphics);
+		// this.state.level.stage.addChild(parent);
+		// this.state.level.stage.addChild(child);	
+		return graphics
 	},
 	animate: function() {
 		// start the timer for the next animation loop
