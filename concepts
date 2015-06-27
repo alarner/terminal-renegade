@@ -1,0 +1,26 @@
+concepts
+ - time limit
+ - location / nodes / tree
+ - health
+ - commands that are available to you
+ - items
+ 	- give you more health, time, or new commands
+ - goals
+ 	- reach a door / portal to the next level
+ 	- survive
+
+node: {
+	display: function() {
+		return new PIXI.Circle(0, 0, 30);
+	},
+	items: [],
+	children: [], // nodes go here
+	spawnRates: {
+		item1: 0.25,
+		item2: 0.1,
+		...
+	},
+	visible: true,
+	messages: [
+	]
+}
