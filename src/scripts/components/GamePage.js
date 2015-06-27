@@ -42,13 +42,26 @@ module.exports = React.createClass({
 		this.refs.pixiLevel.getDOMNode().appendChild(
 			this.state.level.renderer.view
 		);
-
 		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
-		var background = new PIXI.Sprite(texture);
-		background.scale.x = 800;
-		background.scale.y = 600;
-		console.log(background);
-		this.state.home.stage.addChild(background);
+		var activeNodeTexture = PIXI.Texture.fromImage("../images/active_node.png");
+		var activeConnectorTexture = PIXI.Texture.fromImage("../images/active_connector.png");
+		var activeNode = new PIXI.Sprite(activeNodeTexture);
+		var activeConnector = new PIXI.Sprite(activeConnectorTexture);
+		activeConnector.position.y = 140;
+		activeConnector.position.x = 130;
+		activeConnector.rotation = 5.5;
+
+		var position = 0;
+		for(var i = 0; i < 17; i++){
+			var background = new PIXI.Sprite(texture);
+			background.position.y = position;
+			position += 47;
+			console.log(background)
+			this.state.home.stage.addChild(background);
+		}
+		
+		this.state.home.stage.addChild(activeNode);
+		this.state.home.stage.addChild(activeConnector);
 
 		this.animate();
 	},
