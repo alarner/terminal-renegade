@@ -5,7 +5,7 @@ module.exports = {
 			height: 70
 		},
 		spacing: {
-			x: 10,
+			x: 40,
 			y: 40
 		}
 	}
