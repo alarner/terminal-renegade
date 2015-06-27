@@ -1,6 +1,8 @@
 var React = require('react');
 var PIXI = require('pixi.js');
 var globals = require('../globals');
+var CommandBox = require('./CommandBox');
+var GameState = require('../models/GameState');
 
 var levels = [
 	require('../maps/001_tutorial'),
@@ -28,7 +30,8 @@ module.exports = React.createClass({
 		return {
 			page: 'home',
 			level: level,
-			home: home
+			home: home,
+			gameState: new GameState()
 		}
 	},
 	componentDidMount: function() {
@@ -51,6 +54,7 @@ module.exports = React.createClass({
 			<section>
 				<div style={homeStyle}>
 					<div ref="pixiHome"></div>
+					<CommandBox gameState={this.state.gameState} />
 					<button onClick={this.gotoLevel(0)}>Level 1</button>
 					<button onClick={this.gotoLevel(1)}>Level 2</button>
 					<button onClick={this.gotoLevel(2)}>Level 3</button>
@@ -59,6 +63,7 @@ module.exports = React.createClass({
 				</div>
 				<div style={levelStyle}>
 					<div ref="pixiLevel"></div>
+					<CommandBox gameState={this.state.gameState} />
 				</div>
 			</section>
 		);
@@ -66,9 +71,11 @@ module.exports = React.createClass({
 	gotoLevel: function(level) {
 		var self = this;
 		return function(e) {
-			console.log(levels[level]);
+			self.setState({
+				page: 'level',
+				gameState: self.state.gameState.clear({silent: true})
+			});
 			self.drawNode(levels[level].root, levels[level].display);
-			self.setState({page: 'level'});
 		};
 	},
 	getNodeWidth: function(node, pixels) {
