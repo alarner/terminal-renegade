@@ -26346,26 +26346,34 @@ function animate() {
 //
 // // You can use either `new PIXI.WebGLRenderer`, `new PIXI.CanvasRenderer`, or `PIXI.autoDetectRenderer`
 // // which will try to choose the best renderer for the environment you are in.
-// var renderer = new PIXI.WebGLRenderer(800, 600);
+var renderer = new PIXI.WebGLRenderer(800, 600);
 
 // // The renderer will create a canvas element for you that you can then insert into the DOM.
-// document.body.appendChild(renderer.view);
+document.body.appendChild(renderer.view);
 
 // // You need to create a root container that will hold the scene you want to draw.
-// var viewport = new PIXI.Container();
-// var stage = new PIXI.Container();
+var viewport = new PIXI.Container();
+var stage = new PIXI.Container();
 // var nodes = [];
 // var m = 1;
 // var k = 1;
 
-// viewport.addChild(stage);
+viewport.addChild(stage);
 
 // constructStage(map, null);
 
 // console.log(nodes);
 
 // // kick off the animation loop (defined below)
-// animate();
+animate();
+
+function animate() {
+	// start the timer for the next animation loop
+	requestAnimationFrame(animate);
+
+	// this is the main render call that makes pixi draw your container and its children.
+	renderer.render(viewport);
+}
 
 // function animate() {
 // 	for(var i=0; i<nodes.length; i++) {
