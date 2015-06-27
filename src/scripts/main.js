@@ -58,8 +58,11 @@ function drawNode(node, defaultDisplay, x, y) {
 	x = x || 0;
 	y = y || 0;
 
-	// var draw = node.display ? node.display() | defaultDisplay();
-	// draw.position
+	var draw = node.display ? node.display() | defaultDisplay();
+	draw.position.x = x;
+	draw.position.y = y;
+
+	stage.addChild(draw);
 }
 
 function animate() {
