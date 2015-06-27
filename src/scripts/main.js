@@ -58,11 +58,8 @@ function drawNode(node, defaultDisplay, x, y) {
 	x = x || 0;
 	y = y || 0;
 
-	var draw = node.display ? node.display() | defaultDisplay();
-	draw.position.x = x;
-	draw.position.y = y;
-
-	stage.addChild(draw);
+	// var draw = node.display ? node.display() | defaultDisplay();
+	// draw.position
 }
 
 function animate() {
@@ -100,6 +97,11 @@ bunny.anchor.y = 0.5;
 bunny.position.x = 200;
 bunny.position.y = 150;
 
+
+bunny.scale.x = 0.5;
+bunny.scale.y = 0.5;
+
+
 stage.addChild(bunny);
 
 // constructStage(map, null);
@@ -113,8 +115,14 @@ function animate() {
 	// start the timer for the next animation loop
 	requestAnimationFrame(animate);
 
-	 bunny.rotation += 0.1;
- 
+ 	if(bunny.position.x < 500){
+ 		bunny.position.x += 2;
+ 		bunny.position.y += 2;
+ 	} else if(bunny.position.x > 502){
+ 		bunny.position.x -= 2;
+ 		bunny.position.y -= 2;
+ 	}
+ 	//bunny.acceleration.x += 4;
         // render the stage   
      renderer.render(stage);
 	// this is the main render call that makes pixi draw your container and its children.

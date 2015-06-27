@@ -5295,7 +5295,7 @@ module.exports={
   "gitHead": "07e4e26f8fd404524a7ebaa73c210de3d8f2cf25",
   "_id": "pixi.js@3.0.6",
   "_shasum": "e5199dad473f259fb326e091460e4fda6d4e043e",
-  "_from": "pixi.js@*",
+  "_from": "pixi.js@>=3.0.6 <4.0.0",
   "_npmVersion": "1.4.23",
   "_npmUser": {
     "name": "englercj",
@@ -26370,6 +26370,9 @@ bunny.anchor.y = 0.5;
 bunny.position.x = 200;
 bunny.position.y = 150;
 
+bunny.scale.x = 0.5;
+bunny.scale.y = 0.5;
+
 stage.addChild(bunny);
 
 // constructStage(map, null);
@@ -26383,8 +26386,14 @@ function animate() {
 	// start the timer for the next animation loop
 	requestAnimationFrame(animate);
 
-	bunny.rotation += 0.1;
-
+	if (bunny.position.x < 500) {
+		bunny.position.x += 2;
+		bunny.position.y += 2;
+	} else if (bunny.position.x > 502) {
+		bunny.position.x -= 2;
+		bunny.position.y -= 2;
+	}
+	//bunny.acceleration.x += 4;
 	// render the stage  
 	renderer.render(stage);
 	// this is the main render call that makes pixi draw your container and its children.
@@ -26495,7 +26504,7 @@ function animate() {
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
-	defaultNodeDisplay: function defaultNodeDisplay() {
+	display: function display() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);
 		// set the line style to have a width of 5 and set the color to red
@@ -26514,19 +26523,16 @@ module.exports = {
 				name: 'a',
 				items: [],
 				children: [], // nodes go here
-				spawnRates: {},
-				visible: true,
+				itemsVisible: true,
 				messages: []
 			}, {
 				name: 'b',
 				items: [],
 				children: [], // nodes go here
-				spawnRates: {},
-				visible: true,
+				itemsVisible: true,
 				messages: []
 			}], // nodes go here
-			spawnRates: {},
-			visible: true,
+			itemsVisible: true,
 			messages: []
 		}, {
 			name: 'var',
@@ -26541,12 +26547,10 @@ module.exports = {
 			},
 			items: [],
 			children: [], // nodes go here
-			spawnRates: {},
-			visible: true,
+			itemsVisible: true,
 			messages: []
 		}], // nodes go here
-		spawnRates: {},
-		visible: true,
+		itemsVisible: true,
 		messages: []
 	}
 };
