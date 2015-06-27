@@ -22,15 +22,17 @@ module.exports = function(args, gameState) {
 		currentNode = gameState.get('currentNode');
 	}
 
-	var pieces = path.split('/');
+	var pieces = _.filter(path.split('/'), function(piece) {
+		return piece.length;
+	});
 
-	console.log(pieces);
+	// console.log(currentNode, pieces);
 
 	for(var i=0; i<pieces.length; i++) {
 		var node = _.find(currentNode.children, function(child) {
 			return (child.name === pieces[i])
 		});
-		if(node && node.type === 'directory') {
+		if(node && node.type === 'directory' && node.created) {
 			currentNode = node;
 		}
 		else {
@@ -41,4 +43,5 @@ module.exports = function(args, gameState) {
 	gameState.set({
 		currentNode: currentNode
 	});
+	return false;
 }

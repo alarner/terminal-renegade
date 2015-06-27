@@ -64,7 +64,7 @@ module.exports = {
 			},
 			{
 				name: 'usr',
-				created: false,
+				created: true,
 				type: 'directory',
 				items: [],
 				children: [

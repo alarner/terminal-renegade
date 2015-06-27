@@ -152,7 +152,8 @@ module.exports = React.createClass({
 		}
 		return height;
 	},
-	redrawGame: function() {
+	redrawGame: function(gameState) {
+		gameState = gameState || this.state.gameState;
 		var level = this.getLevel();
 		// Draw map
 		if(level && level.root) {
@@ -160,9 +161,9 @@ module.exports = React.createClass({
 		}
 
 		// Place character
-		var character = this.state.gameState.get('character');
+		var character = gameState.get('character');
 		this.state.level.stage.addChild(character);
-		var currentNode = this.state.gameState.get('currentNode');
+		var currentNode = gameState.get('currentNode');
 		if(currentNode && currentNode._display) {
 			character.position = currentNode._display.position;
 		}

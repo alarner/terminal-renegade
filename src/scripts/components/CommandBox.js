@@ -55,6 +55,7 @@ module.exports = React.createClass({
 	},
 
 	say: function(message) {
+		console.log(message);
 		this.props.gameState.set({chatText: message});
 	}
 });
