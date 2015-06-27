@@ -71289,7 +71289,8 @@ var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
 	display: function display() {
-		console.log('display', this);
+		// console.log('display', this);
+
 		// var graphics = new PIXI.Graphics();
 		// graphics.beginFill(0xFFFF00);
 		// // set the line style to have a width of 5 and set the color to red
