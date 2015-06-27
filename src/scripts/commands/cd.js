@@ -1,6 +1,3 @@
-module.exports = {
-	regex: /$cd .+^/i,
-	function(args, state) {
-		
-	}
+module.exports = function(args, state) {
+	console.log('RUN CD COMMAND!');
 }
