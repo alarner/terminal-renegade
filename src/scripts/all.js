@@ -17886,7 +17886,7 @@ module.exports={
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GoodBoyDigital/pixi.js.git"
+    "url": "git+https://github.com/GoodBoyDigital/pixi.js.git"
   },
   "scripts": {
     "test": "gulp && testem ci",
@@ -17952,7 +17952,8 @@ module.exports={
     "tarball": "http://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
+  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz",
+  "readme": "ERROR: No README data found!"
 }
 
 },{}],22:[function(require,module,exports){
@@ -58759,7 +58760,8 @@ module.exports = React.createClass({
 		return {
 			page: 'home',
 			level: level,
-			home: home
+			home: home,
+			character: character
 		};
 	},
 	componentDidMount: function componentDidMount() {
@@ -58816,9 +58818,14 @@ module.exports = React.createClass({
 	},
 	gotoLevel: function gotoLevel(level) {
 		var self = this;
+		var character = {
+			texture: PIXI.Texture.fromImage('../images/bunny.gif'),
+			sprite: new PIXI.Sprite(this.texture)
+		};
 		return function (e) {
 			console.log(levels[level]);
 			self.drawNode(levels[level].root, levels[level].display);
+			self.state.gameState.set({ character: character.sprite });
 			self.setState({ page: 'level' });
 		};
 	},
@@ -58960,30 +58967,30 @@ module.exports = {
 		// graphics.drawRect(0, 0, globals.node.size.width-5, globals.node.size.height-5);
 		// return graphics;
 		var texture = PIXI.Texture.fromImage('../images/bunny.gif');
-		var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
+		//var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
 		// create a new Sprite using the texture
 		var bunny = new PIXI.Sprite(texture);
-		var paranoia = new PIXI.Sprite(paranoiaTexture);
+		//var paranoia = new PIXI.Sprite(paranoiaTexture);
 
 		bunny.anchor.x = 0.5;
 		bunny.anchor.y = 0.5;
 
-		paranoia.anchor.x = 0.5;
-		paranoia.anchor.y = 0.5;
+		// paranoia.anchor.x = 0.5;
+		// paranoia.anchor.y = 0.5;
 
 		// move the sprite to the center of the screen
 		bunny.position.x = 200;
 		bunny.position.y = 200;
 
-		paranoia.position.x = 200;
-		paranoia.position.y = 200;
+		// paranoia.position.x = 200;
+		// paranoia.position.y = 200;
 
 		bunny.scale.x = 0.5;
 		bunny.scale.y = 0.5;
 
-		paranoia.scale.x = 0.2;
-		paranoia.scale.y = 0.2;
-		return paranoia;
+		// paranoia.scale.x = 0.2;
+		// paranoia.scale.y = 0.2;
+		return bunny;
 	},
 	root: {
 		name: '/',

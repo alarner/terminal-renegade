@@ -28,7 +28,8 @@ module.exports = React.createClass({
 		return {
 			page: 'home',
 			level: level,
-			home: home
+			home: home,
+			character: character
 		}
 	},
 	componentDidMount: function() {
@@ -65,9 +66,14 @@ module.exports = React.createClass({
 	},
 	gotoLevel: function(level) {
 		var self = this;
+		var character = {
+			texture: PIXI.Texture.fromImage("../images/bunny.gif"),
+			sprite: new PIXI.Sprite(this.texture)
+		};
 		return function(e) {
 			console.log(levels[level]);
 			self.drawNode(levels[level].root, levels[level].display);
+			self.state.gameState.set({character:character.sprite});
 			self.setState({page: 'level'});
 		};
 	},
