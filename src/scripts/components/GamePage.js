@@ -42,6 +42,14 @@ module.exports = React.createClass({
 		this.refs.pixiLevel.getDOMNode().appendChild(
 			this.state.level.renderer.view
 		);
+
+		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
+		var background = new PIXI.Sprite(texture);
+		background.scale.x = 800;
+		background.scale.y = 600;
+		console.log(background);
+		this.state.home.stage.addChild(background);
+
 		this.animate();
 	},
 	render: function() {
