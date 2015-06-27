@@ -30126,7 +30126,7 @@ module.exports={
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GoodBoyDigital/pixi.js.git"
+    "url": "https://github.com/GoodBoyDigital/pixi.js.git"
   },
   "scripts": {
     "test": "gulp && testem ci",
@@ -30192,8 +30192,7 @@ module.exports={
     "tarball": "http://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz",
-  "readme": "ERROR: No README data found!"
+  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
 }
 
 },{}],23:[function(require,module,exports){
@@ -71196,7 +71195,7 @@ module.exports = React.createClass({
 		x = x || 0;
 		y = y || 0;
 
-		var draw = node.display ? node.display() : defaultDisplay();
+		var draw = node.display ? node.display() : defaultDisplay.call(node);
 		draw.position.x = x + (width - draw.width) / 2;
 		draw.position.y = y;
 
@@ -71278,6 +71277,7 @@ var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
 	display: function display() {
+		console.log('display', this);
 		// var graphics = new PIXI.Graphics();
 		// graphics.beginFill(0xFFFF00);
 		// // set the line style to have a width of 5 and set the color to red
@@ -71285,7 +71285,14 @@ module.exports = {
 		// // draw a rectangle
 		// graphics.drawRect(0, 0, globals.node.size.width-5, globals.node.size.height-5);
 		// return graphics;
-		var texture = PIXI.Texture.fromImage('../images/active_node.png');
+		var texture;
+
+		if (this.created) {
+			texture = PIXI.Texture.fromImage('../images/active_node.png');
+		} else {
+			texture = PIXI.Texture.fromImage('../images/inactive_node.png');
+		}
+
 		//var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
 		// create a new Sprite using the texture
 		var sprite = new PIXI.Sprite(texture);
@@ -71314,18 +71321,22 @@ module.exports = {
 	},
 	root: {
 		name: '/',
+		created: true,
 		items: [],
 		children: [{
 			name: 'usr',
+			created: false,
 			items: [],
 			children: [{
 				name: 'a',
+				created: false,
 				items: [],
 				children: [], // nodes go here
 				itemsVisible: true,
 				messages: []
 			}, {
 				name: 'b',
+				created: false,
 				items: [],
 				children: [], // nodes go here
 				itemsVisible: true,
@@ -71335,6 +71346,7 @@ module.exports = {
 			messages: []
 		}, {
 			name: 'var',
+			created: true,
 
 			// var paranoiaTexture = PIXI.Texture.fromImage('../images/paranoia.png');
 			// 			var paranoia = new PIXI.Sprite(paranoiaTexture);

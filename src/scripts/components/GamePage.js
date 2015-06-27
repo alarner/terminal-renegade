@@ -137,7 +137,7 @@ module.exports = React.createClass({
 		x = x || 0;
 		y = y || 0;
 
-		var draw = node.display ? node.display() : defaultDisplay();
+		var draw = node.display ? node.display() : defaultDisplay.call(node);
 		draw.position.x = x + (width - draw.width)/2;
 		draw.position.y = y;
 
