@@ -1,7 +1,7 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
-	defaultNodeDisplay: function() {
+	display: function() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);
 		// set the line style to have a width of 5 and set the color to red
@@ -24,8 +24,7 @@ module.exports = {
 						children: [
 							
 						], // nodes go here
-						spawnRates: {},
-						visible: true,
+						itemsVisible: true,
 						messages: []
 					},
 					{
@@ -34,13 +33,11 @@ module.exports = {
 						children: [
 							
 						], // nodes go here
-						spawnRates: {},
-						visible: true,
+						itemsVisible: true,
 						messages: []
 					}
 				], // nodes go here
-				spawnRates: {},
-				visible: true,
+				itemsVisible: true,
 				messages: []
 			},
 			{
@@ -58,13 +55,11 @@ module.exports = {
 				children: [
 					
 				], // nodes go here
-				spawnRates: {},
-				visible: true,
+				itemsVisible: true,
 				messages: []
 			}
 		], // nodes go here
-		spawnRates: {},
-		visible: true,
+		itemsVisible: true,
 		messages: []
 	}
 }
