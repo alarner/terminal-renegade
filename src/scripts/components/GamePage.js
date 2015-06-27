@@ -70,12 +70,19 @@ module.exports = React.createClass({
 	},
 	gotoLevel: function(level) {
 		var self = this;
+		var character = {
+			texture: PIXI.Texture.fromImage("../images/bunny.gif"),
+			sprite: new PIXI.Sprite(this.texture)
+		};
 		return function(e) {
 			self.setState({
 				page: 'level',
 				gameState: self.state.gameState.clear({silent: true})
 			});
 			self.drawNode(levels[level].root, levels[level].display);
+
+			self.state.gameState.set({character:character.sprite});
+			self.setState({page: 'level'});
 		};
 	},
 	getNodeWidth: function(node, pixels) {
