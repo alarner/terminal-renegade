@@ -1,8 +1,8 @@
 module.exports = {
 	node: {
 		size: {
-			width: 100,
-			height: 100
+			width: 156,
+			height: 156
 		},
 		spacing: {
 			x: 40,

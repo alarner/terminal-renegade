@@ -18,7 +18,8 @@ module.exports = React.createClass({
 		var level = {
 			renderer: new PIXI.WebGLRenderer(800, 600),
 			viewport: new PIXI.Container(),
-			stage: new PIXI.Container()
+			stage: new PIXI.Container(),
+			number: null
 		};
 		var home = {
 			renderer: new PIXI.WebGLRenderer(800, 600),
@@ -68,21 +69,39 @@ module.exports = React.createClass({
 			</section>
 		);
 	},
+	getLevel: function(level) {
+		if(typeof level === 'undefined' || level === null) {
+			level = this.state.level.number;
+		}
+		if(level === null) return false;
+		return levels[level];
+	},
 	gotoLevel: function(level) {
 		var self = this;
-		var character = {
-			texture: PIXI.Texture.fromImage("../images/bunny.gif"),
-			sprite: new PIXI.Sprite(this.texture)
-		};
+		var texture = PIXI.Texture.fromImage("../images/active_character.png");
+		var character = new PIXI.Sprite(texture);
+		character.scale.x = 0.25;
+		character.scale.y = 0.25;
+		character.anchor.x = 0.5;
+		character.anchor.y = 0.5;
+		
 		return function(e) {
-			self.setState({
-				page: 'level',
-				gameState: self.state.gameState.clear({silent: true})
-			});
-			self.drawNode(levels[level].root, levels[level].display);
+			self.state.gameState.clear({silent: true});
+			self.setState(function(previousState) {
 
-			self.state.gameState.set({character:character.sprite});
-			self.setState({page: 'level'});
+				console.log(self.getLevel(level));
+				previousState.page = 'level';
+				previousState.gameState.set({
+					currentNode: self.getLevel(level).root,
+					character: character
+				});
+				console.log(previousState.gameState);
+				previousState.level.number = level;
+				return previousState;
+				// page: 'level',
+			}, function() {
+				self.redrawGame();
+			});
 		};
 	},
 	getNodeWidth: function(node, pixels) {
@@ -130,14 +149,36 @@ module.exports = React.createClass({
 		}
 		return height;
 	},
-	drawNode: function(node, defaultDisplay, x, y) {
+	redrawGame: function() {
+		var level = this.getLevel();
+		// Draw map
+		this.drawNode(level.root);
+
+		// Place character
+		var character = this.state.gameState.get('character');
+		this.state.level.stage.addChild(character);
+		var currentNode = this.state.gameState.get('currentNode');
+		character.position = currentNode._display.position;
+
+
+	},
+	generateNode: function(node, defaultDisplay) {
+		if(node._display) return node._display;
+
+		var level = this.getLevel();
+
+		var d = node.display ? node.display() : level.display.call(node);
+		node._display = d;
+		return node._display;
+	},
+	drawNode: function(node, x, y) {
 		var width = this.getNodeWidth(node, true);
 		var height = this.getNodeHeight(node, true);
 
 		x = x || 0;
 		y = y || 0;
 
-		var parent = node.display ? node.display() : defaultDisplay.call(node);
+		var parent = this.generateNode(node);
 		parent.position.x = x + width/2;
 		parent.position.y = y + globals.node.size.height/2;
 
@@ -151,7 +192,7 @@ module.exports = React.createClass({
 			if(previousNode) {
 				newX += this.getNodeWidth(previousNode, true) + globals.node.spacing.x;
 			}
-			var child = this.drawNode(node.children[i], defaultDisplay, newX, newY);
+			var child = this.drawNode(node.children[i], newX, newY);
 			previousNode = node.children[i];
 			this.drawLine(parent, child);
 		}
