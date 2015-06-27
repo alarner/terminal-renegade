@@ -18,9 +18,11 @@
   "homepage": "https://github.com/alarner/clash#readme",
   "dependencies": {
     "backbone": "^1.2.1",
+    "jquery": "^2.1.4",
     "ngraph.generators": "0.0.15",
     "ngraph.pixi": "0.0.2",
-    "pixi.js": "^3.0.6"
+    "pixi.js": "^3.0.6",
+    "react": "^0.13.3"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
