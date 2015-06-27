@@ -30126,7 +30126,7 @@ module.exports={
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GoodBoyDigital/pixi.js.git"
+    "url": "git+https://github.com/GoodBoyDigital/pixi.js.git"
   },
   "scripts": {
     "test": "gulp && testem ci",
@@ -30192,7 +30192,8 @@ module.exports={
     "tarball": "http://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz"
+  "_resolved": "https://registry.npmjs.org/pixi.js/-/pixi.js-3.0.6.tgz",
+  "readme": "ERROR: No README data found!"
 }
 
 },{}],23:[function(require,module,exports){
@@ -71217,10 +71218,10 @@ module.exports = React.createClass({
 	},
 	drawLine: function drawLine(parent, child) {
 		var graphics = new PIXI.Graphics();
+		graphics.lineStyle(3, 0xFF0000);
 		graphics.moveTo(parent.position.x, parent.position.y);
 		graphics.lineTo(child.position.x, child.position.y);
-		graphics.beginFill(0xFF0000);
-		graphics.lineStyle(3, 0xFF0000);
+		// graphics.beginFill(0xFF0000);
 		this.state.level.stage.addChild(graphics);
 	},
 	animate: function animate() {

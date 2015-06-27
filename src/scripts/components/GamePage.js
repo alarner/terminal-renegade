@@ -159,10 +159,10 @@ module.exports = React.createClass({
 	},
 	drawLine: function(parent, child){
 		var graphics = new PIXI.Graphics();
+		graphics.lineStyle(3, 0xFF0000);
 		graphics.moveTo(parent.position.x, parent.position.y);
 		graphics.lineTo(child.position.x, child.position.y);
-		graphics.beginFill(0xFF0000);
-    	graphics.lineStyle(3, 0xFF0000);
+		// graphics.beginFill(0xFF0000);
 		this.state.level.stage.addChild(graphics);
 	},
 	animate: function() {
