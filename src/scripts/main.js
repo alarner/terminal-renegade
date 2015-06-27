@@ -55,11 +55,11 @@ function drawNode(node, defaultDisplay, x, y) {
 	var width = getNodeWidth(node);
 	var height = getNodeHeight(node);
 
-	x = x | 0;
-	y = y | 0;
+	x = x || 0;
+	y = y || 0;
 
-	var draw = node.display ? node.display() | defaultDisplay();
-	draw.position
+	// var draw = node.display ? node.display() | defaultDisplay();
+	// draw.position
 }
 
 function animate() {
