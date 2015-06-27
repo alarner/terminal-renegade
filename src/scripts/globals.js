@@ -8,5 +8,6 @@ module.exports = {
 			x: 40,
 			y: 40
 		}
-	}
+	},
+	characterName: 'Rae'
 }

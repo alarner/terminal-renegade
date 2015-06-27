@@ -5,6 +5,7 @@ module.exports = Backbone.Model.extend({
 		currentNode: null,
 		itemsCollected: 0,
 		history: [],
-		commandsAvailable: ['cd']
+		commandsAvailable: ['cd'],
+		level: null
 	}
 })
