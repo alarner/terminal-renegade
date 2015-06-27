@@ -14,9 +14,10 @@ module.exports = {
 		    // create a new Sprite using the texture
 		var sprite = new PIXI.Sprite(texture);
 		//var paranoia = new PIXI.Sprite(paranoiaTexture);
+		console.log(this);
 
-		// sprite.anchor.x = 0.;
-		// sprite.anchor.y = 0.5;
+		sprite.anchor.x = 0.5;
+		sprite.anchor.y = 0.5;
 
 		// paranoia.anchor.x = 0.5;
 		// paranoia.anchor.y = 0.5;

@@ -137,22 +137,33 @@ module.exports = React.createClass({
 		x = x || 0;
 		y = y || 0;
 
-		var draw = node.display ? node.display() : defaultDisplay();
-		draw.position.x = x + (width - draw.width)/2;
-		draw.position.y = y;
+		var parent = node.display ? node.display() : defaultDisplay();
+		parent.position.x = x + width/2;
+		parent.position.y = y + globals.node.size.height/2;
 
-		this.state.level.stage.addChild(draw);
+		this.state.level.stage.addChild(parent);
 
 		var newY = y+globals.node.size.height+globals.node.spacing.y;
 		var previousNode = null;
+
 		for(var i=0; i<node.children.length; i++) {
 			var newX = x;
 			if(previousNode) {
 				newX += this.getNodeWidth(previousNode, true) + globals.node.spacing.x;
 			}
-			this.drawNode(node.children[i], defaultDisplay, newX, newY);
+			var child = this.drawNode(node.children[i], defaultDisplay, newX, newY);
 			previousNode = node.children[i];
+			this.drawLine(parent, child);
 		}
+		return parent;
+	},
+	drawLine: function(parent, child){
+		var graphics = new PIXI.Graphics();
+		graphics.moveTo(parent.position.x, parent.position.y);
+		graphics.lineTo(child.position.x, child.position.y);
+		graphics.beginFill(0xFF0000);
+    	graphics.lineStyle(3, 0xFF0000);
+		this.state.level.stage.addChild(graphics);
 	},
 	animate: function() {
 		// start the timer for the next animation loop
