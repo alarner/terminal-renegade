@@ -233,30 +233,68 @@ module.exports = React.createClass({
 		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
 		var activeNodeTexture = PIXI.Texture.fromImage("../images/active_node.png");
 		var activeConnectorTexture = PIXI.Texture.fromImage("../images/active_connector.png");
+		var characterTexture = PIXI.Texture.fromImage("../images/active_character.png");
 
 		var activeNode = new PIXI.Sprite(activeNodeTexture);
+		activeNode.position.x = 60;
+		activeNode.position.y = 30;
 
 		var activeNode2 = new PIXI.Sprite(activeNodeTexture);
-		activeNode2.position.x = 200;
-		activeNode2.position.y = 200;
+		activeNode2.position.x = 260;
+		activeNode2.position.y = 230;
+
+		var character = new PIXI.Sprite(characterTexture);
+		character.position.x = activeNode2.position.x + 53;
+		character.position.y = activeNode2.position.y + 45;
+		character.scale.x = 0.25;
+		character.scale.y = 0.25;
+
+		var activeNode3 = new PIXI.Sprite(activeNodeTexture);
+		activeNode3.position.x = 60;
+		activeNode3.position.y = 430;
 
 		var activeConnector = new PIXI.Sprite(activeConnectorTexture);
-		activeConnector.position.y = 140;
-		activeConnector.position.x = 130;
+		activeConnector.position.y = 175;
+		activeConnector.position.x = 185;
 		activeConnector.rotation = 5.5;
+
+		var activeConnector2 = new PIXI.Sprite(activeConnectorTexture);
+		activeConnector2.position.y = 355;
+		activeConnector2.position.x = 270;
+		activeConnector2.rotation = -5.5;
+
+		var activeConnector3 = new PIXI.Sprite(activeConnectorTexture);
+		activeConnector3.position.y = 155;
+		activeConnector3.position.x = 470;
+		activeConnector3.rotation = -5.5;
+
+		var activeConnector4 = new PIXI.Sprite(activeConnectorTexture);
+		activeConnector4.position.y = 300;
+		activeConnector4.position.x = 540;
+		activeConnector4.rotation = 1.57079633;
+
+		var activeConnector5 = new PIXI.Sprite(activeConnectorTexture);
+		activeConnector5.position.y = 370;
+		activeConnector5.position.x = 390;
+		activeConnector5.rotation = 5.5;
 
 		var position = 0;
 		for(var i = 0; i < 17; i++){
 			var background = new PIXI.Sprite(texture);
 			background.position.y = position;
 			position += 47;
-			console.log(background)
 			this.state.home.stage.addChild(background);
 		}
 		
 		this.state.home.stage.addChild(activeNode);
 		this.state.home.stage.addChild(activeConnector);
+		this.state.home.stage.addChild(activeConnector2);
+		this.state.home.stage.addChild(activeConnector3);
+		this.state.home.stage.addChild(activeConnector4);
+		this.state.home.stage.addChild(activeConnector5);
 		this.state.home.stage.addChild(activeNode2);
+		this.state.home.stage.addChild(activeNode3);
+		this.state.home.stage.addChild(character);
 
 	}
 });
