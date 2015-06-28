@@ -26,17 +26,27 @@ module.exports = function(args, gameState) {
 		return piece.length;
 	});
 
-	// console.log(currentNode, pieces);
+	console.log(currentNode);
 
 	for(var i=0; i<pieces.length; i++) {
-		var node = _.find(currentNode.children, function(child) {
-			return (child.name === pieces[i])
-		});
-		if(node && node.type === 'directory' && node.created) {
-			currentNode = node;
+		if(pieces[i] === '..') {
+			if(currentNode._parent) {
+				currentNode = currentNode._parent;
+			}
 		}
 		else {
-			return 'cd: no such file or directory: '+args[0];
+			var node = _.find(currentNode.children, function(child) {
+				return (child.name === pieces[i])
+			});
+			if(node && node.type === 'directory' && node.created) {
+				currentNode = node;
+			}
+			else if(node && node.type !== 'directory') {
+				return 'cd: not a directory: '+args[0];
+			}
+			else {
+				return 'cd: no such file or directory: '+args[0];
+			}
 		}
 	}
 

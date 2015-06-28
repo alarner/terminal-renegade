@@ -4,6 +4,18 @@ var globals = require('../globals');
 var CommandBox = require('./CommandBox');
 var GameState = require('../models/GameState');
 
+function updateParents(node, parent) {
+	if(parent) {
+		node._parent = parent;
+	}
+
+	if(node.children) {
+		for(var i=0; i<node.children.length; i++) {
+			updateParents(node.children[i], node);
+		}
+	}
+}
+
 var levels = [
 	require('../maps/001_tutorial'),
 	require('../maps/002_pilot_deck'),
@@ -12,6 +24,10 @@ var levels = [
 	require('../maps/005_experimental_facility'),
 	require('../maps/006_outer_space')
 ];
+
+for(var i=0; i<levels.length; i++) {
+	updateParents(levels[i].root);
+}
 
 module.exports = React.createClass({
 	getInitialState: function() {
