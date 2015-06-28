@@ -4,7 +4,16 @@ var commands = {
 	cd: require('../commands/cd')
 };
 
+var KEY = {
+	ENTER: 13,
+	UP: 38,
+	DOWN: 40
+};
+
 module.exports = React.createClass({
+	getInitialState: function() {
+		return { historyPosition: 0 };
+	},
 	render: function() {
 		var style = {
 			width: '800px',
@@ -22,10 +31,30 @@ module.exports = React.createClass({
 		);
 	},
 	keyUp: function(e) {
-		if(e.which === 13) {
+		if(e.which === KEY.ENTER) {
 			var error = this.executeCommand(this.refs.input.getDOMNode().value);
 			this.refs.input.getDOMNode().value = '';
+			this.setState({ historyPosition: 0 });
 			return;
+		}
+		else if(e.which === KEY.UP) {
+			e.preventDefault();
+			var historyPosition = this.state.historyPosition + 1;
+			var history = this.props.gameState.get('history');
+			if(history.length < historyPosition) return;
+			this.setState({ historyPosition: historyPosition });
+			this.refs.input.getDOMNode().value = history[historyPosition-1];
+		}
+		else if(e.which === KEY.DOWN) {
+			e.preventDefault();
+			var historyPosition = this.state.historyPosition - 1;
+			if(historyPosition < 1) {
+				this.refs.input.getDOMNode().value = '';
+				return;
+			}
+			var history = this.props.gameState.get('history');
+			this.setState({ historyPosition: historyPosition });
+			this.refs.input.getDOMNode().value = history[historyPosition-1];
 		}
 	},
 	executeCommand: function(command) {
@@ -35,6 +64,11 @@ module.exports = React.createClass({
 		});
 
 		if(!args.length) return;
+
+		var history = this.props.gameState.get('history');
+		history.unshift(command);
+		this.props.gameState.set({ history: history });
+		console.log(this.props.gameState.get('history'));
 
 		var command = args.shift().toLowerCase();
 

@@ -113,7 +113,8 @@ module.exports = React.createClass({
 					currentNode: self.getLevel(level).root,
 					character: character,
 					commandsAvailable: ['cd'],
-					level: self.getLevel(level)
+					level: self.getLevel(level),
+					history: []
 				});
 				previousState.level.number = level;
 				return previousState;
