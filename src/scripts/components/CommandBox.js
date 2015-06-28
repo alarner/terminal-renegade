@@ -62,7 +62,7 @@ module.exports = React.createClass({
 
 			var c = argv._[0].toLowerCase();
 
-			if(!this.props.gameState.availableCommands.get(c) || !commands.hasOwnProperty(c)) {
+			if(!this.props.availableCommands.get(c) || !commands.hasOwnProperty(c)) {
 				return;
 			}
 				
@@ -143,7 +143,7 @@ module.exports = React.createClass({
 		this.history.unshift(command);
 
 		var c = argv._[0].toLowerCase();
-		if(!this.props.gameState.availableCommands.get(c)) {
+		if(!this.props.availableCommands.get(c)) {
 			return 'You don\'t have a command called `'+c+'`';
 		}
 		if(!commands.hasOwnProperty(c)) {

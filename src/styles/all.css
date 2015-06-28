@@ -33,7 +33,11 @@ main > div {
     background: #131313;
     border-right: 5px solid #000;
     box-sizing: border-box;
-    padding: 20px; }
+    padding: 20px;
+    color: #D9D6D2; }
+    .play nav .headshot-level {
+      overflow: hidden;
+      margin-bottom: 3em; }
     .play nav .headshot {
       width: 50px;
       height: 50px;
@@ -41,8 +45,7 @@ main > div {
       float: left;
       margin-right: 8px; }
     .play nav .level {
-      float: left;
-      color: #D9D6D2; }
+      float: left; }
       .play nav .level h4 {
         margin: 0.7em 0 0.4em 0; }
       .play nav .level .level-name {

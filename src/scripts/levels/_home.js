@@ -61,7 +61,7 @@ module.exports = {
 		name: '/',
 		created: true,
 		type: 'directory',
-		items: [],
+		items: ['mkdir'],
 		itemsVisible: true,
 		messages: [],
 		say: [

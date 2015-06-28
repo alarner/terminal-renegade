@@ -9,6 +9,13 @@ module.exports = {
 	run: function(args, gameState) {
 		var currentNode = this.getNewNode(args, gameState);
 
+		if(currentNode.items && currentNode.items.length) {
+			_.each(currentNode.items, function(item) {
+				gameState.availableCommands[gameState.get('stage')].add({id: item});
+			});
+			currentNode.items = [];
+		}
+
 		gameState.set({
 			currentNode: currentNode
 		});

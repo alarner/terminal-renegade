@@ -9,6 +9,12 @@
 		border-right: 5px solid #000;
 		box-sizing: border-box;
 		padding: 20px;
+		color: #D9D6D2;
+
+		.headshot-level {
+			overflow: hidden;
+			margin-bottom: 3em;
+		}
 
 		.headshot {
 			width: 50px;
@@ -20,7 +26,6 @@
 
 		.level {
 			float: left;
-			color: #D9D6D2;
 
 			h4 {
 				margin: 0.7em 0 0.4em 0;

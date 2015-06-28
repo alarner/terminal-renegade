@@ -29,13 +29,16 @@ module.exports = React.createClass({
 	componentWillMount: function() {
 		var self = this;
 		this.gameState = new GameState();
-		this.gameState.availableCommands = new CommandCollection();
-		this.gameState.availableCommands.add([
-			{id: 'cd'},
-			{id: 'exit'},
-			{id: 'mkdir'},
-			{id: 'open'}
-		]);
+		this.gameState.availableCommands = {
+			home: new CommandCollection([
+				{id: 'cd'},
+				{id: 'open'}
+			]),
+			play: new CommandCollection([
+				{id: 'cd'},
+				{id: 'exit'}
+			])
+		};
 		this.renderer = new PIXI.WebGLRenderer(
 			globals.viewport.width,
 			globals.viewport.height
@@ -151,10 +154,6 @@ module.exports = React.createClass({
 			this.forceUpdate();
 		}
 	},
-	// onGameClick: function(e) {
-	// 	console.log('onGameClick');
-	// 	this.refs.commandBox.getDOMNode().focus();
-	// },
 	cancelModal: function(name) {
 		var self = this;
 		return function(e) {
@@ -202,6 +201,9 @@ module.exports = React.createClass({
 						<img src="/images/active_character.png" className="headshot" />
 						{level}
 					</div>
+					<div className="items">
+						<h4>Available Powerups</h4>
+					</div>
 				</nav>
 				<div className="right">
 					<div ref="stage">
@@ -209,6 +211,7 @@ module.exports = React.createClass({
 					<CommandBox
 						callback={this.onCommand}
 						gameState={this.gameState}
+						availableCommands={this.gameState.availableCommands[this.gameState.get('stage')]}
 						ref="commandBox" />
 				</div>
 				<Modal isOpen={this.state.exitModalOpen}>
