@@ -9,6 +9,7 @@ var CommandCollection = require('../collections/CommandCollection');
 var Modal = require('react-modal');
 var renderTools = require('../libs/render-tools');
 var Character = require('../libs/character');
+var powerups = require('../powerups');
 
 var homeLevel = renderTools.loadFreshLevel(require('../levels/_home'));
 
@@ -195,8 +196,23 @@ module.exports = React.createClass({
 			);
 		}
 
-		var items = this.gameState.availableCommands[this.gameState.get('stage')].map(function(item) {
-			// return 
+		var powerupElements = this.gameState.availableCommands[this.gameState.get('stage')].map(function(pu) {
+			console.log(pu);
+			if(!powerups.hasOwnProperty(pu.id)) {
+				return <div>bad powerup {pu.id}</div>
+			}
+			var powerup = powerups[pu.id];
+			return (
+				<div key={pu.id} className="pu">
+					<div className="icon">
+						<img src={powerup.icon || ''} />
+					</div>
+					<div className="command">
+						{powerup.command}
+					</div>
+					<button type="button" className="info-btn"></button>
+				</div>
+			);
 		});
 		return (
 			<section ref="game" className="play">
@@ -205,8 +221,9 @@ module.exports = React.createClass({
 						<img src="/images/active_character.png" className="headshot" />
 						{level}
 					</div>
-					<div className="items">
+					<div className="powerups">
 						<h4>Available Powerups</h4>
+						{powerupElements}
 					</div>
 				</nav>
 				<div className="right">

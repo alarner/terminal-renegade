@@ -41,4 +41,28 @@
 		float: left;
 		width: 800px;
 	}
+
+	.powerups {
+		.pu {
+			overflow: hidden;
+			margin-bottom: 14px;
+
+			.icon, .command {
+				margin-right: 8px;
+				width: 36px;
+				height: 36px;
+				line-height: 36px;
+				float: left;
+			}
+
+			.info-btn {
+				float: right;
+				width: 20px;
+				height: 20px;
+				margin: 8px;
+				border: 0;
+				padding: 0;
+			}
+		}
+	}
 }
