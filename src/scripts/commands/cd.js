@@ -8,6 +8,7 @@ module.exports = {
 	},
 	run: function(args, gameState) {
 		var path = this.getPath(args, gameState);
+		var originalPath = path;
 		if(path === null) return false;
 
 		var currentNode = gameState.get('currentNode');
@@ -36,10 +37,10 @@ module.exports = {
 					currentNode = node;
 				}
 				else if(node && node.type !== 'directory') {
-					throw 'cd: not a directory: '+args[0];
+					throw 'cd: not a directory: '+originalPath;
 				}
 				else {
-					throw 'cd: no such file or directory: '+args[0];
+					throw 'cd: no such file or directory: '+originalPath;
 				}
 			}
 		}

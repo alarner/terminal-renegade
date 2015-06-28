@@ -80,8 +80,7 @@ module.exports = React.createClass({
 			try {
 				var currentNode = clTools.getNodeFromPath(parentPath, this.props.gameState);
 				var options = _.filter(currentNode.children, function(child) {
-					console.log(child.name, search, _.startsWith(child.name, search));
-					return _.startsWith(child.name, search);
+					return _.startsWith(child.name, search) && child.created;
 				});
 				if(options.length === 1) {
 					var pieces = command.split(' ');
@@ -96,9 +95,14 @@ module.exports = React.createClass({
 					}
 					this.refs.input.getDOMNode().value = newInput;
 				}
-				console.log(search);
-				console.log(currentNode);
-				console.log(options);
+				else if(options.length > 1){
+					this.props.gameState.get('character').say('Your options are: '+_.map(options, function(child) {
+						return child.name;
+					}).join(', '));
+				}
+				else {
+					return;
+				}
 			}
 			catch(e) {
 				console.log(e);

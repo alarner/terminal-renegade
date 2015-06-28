@@ -49,10 +49,10 @@ module.exports = {
 					currentNode = node;
 				}
 				else if(node && node.type !== 'directory') {
-					throw 'not a directory: '+args[0];
+					throw 'not a directory: '+path;
 				}
 				else {
-					throw 'no such file or directory: '+args[0];
+					throw 'no such file or directory: '+path;
 				}
 			}
 		}
