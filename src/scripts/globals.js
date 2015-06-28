@@ -13,5 +13,8 @@ module.exports = {
 		width: 800,
 		height: 600
 	},
+	chat: {
+		padding: 15
+	},
 	characterName: 'Rae'
 }

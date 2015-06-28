@@ -30,6 +30,9 @@ module.exports = React.createClass({
 			<input type="text" onKeyUp={this.keyUp} ref="input" style={style} />
 		);
 	},
+	focus: function() {
+		this.refs.input.getDOMNode().focus();
+	},
 	keyUp: function(e) {
 		if(e.which === KEY.ENTER) {
 			var command = this.refs.input.getDOMNode().value;
@@ -74,6 +77,6 @@ module.exports = React.createClass({
 		if(!commands.hasOwnProperty(c)) {
 			return 'Command not found: `'+c+'`';
 		}
-		return commands[command](args, this.props.gameState);
+		return commands[c](args, this.props.gameState);
 	}
 });

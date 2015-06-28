@@ -2,11 +2,12 @@ var Backbone = require('backbone');
 Backbone.$ = require('jquery');
 module.exports = Backbone.Model.extend({
 	defaults: {
-		currentStage: 'home',
+		stage: 'home',
 		currentNode: null,
 		itemsCollected: 0,
 		history: [],
-		commandsAvailable: ['cd'],
-		level: null
+		level: null,
+		character: null,
+		message: false
 	}
 })
