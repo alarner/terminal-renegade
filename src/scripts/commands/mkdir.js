@@ -18,6 +18,7 @@ module.exports = {
 	},
 	run: function(args, gameState) {
 		var path = this.getPath(args, gameState);
+		if(path === null) return false;
 		var parents = false;
 
 		var originalPath = path;

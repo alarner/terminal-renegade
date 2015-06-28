@@ -8,6 +8,7 @@ module.exports = {
 	},
 	run: function(args, gameState) {
 		var path = this.getPath(args, gameState);
+		if(path === null) return false;
 
 		var currentNode = gameState.get('currentNode');
 		if(!currentNode) throw 'No current node!';
