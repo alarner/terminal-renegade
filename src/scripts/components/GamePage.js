@@ -31,9 +31,15 @@ module.exports = React.createClass({
 			globals.viewport.width,
 			globals.viewport.height
 		);
+		this.renderer.backgroundColor = 0x141414;
 		this.stages = {
 			home: new PIXI.Container(),
 			play: new PIXI.Container()
+		};
+
+		this.backgrounds = {
+			home: null,
+			play: null 
 		};
 
 		Modal.setAppElement(document.body);
@@ -104,6 +110,19 @@ module.exports = React.createClass({
 		}
 	},
 	goHome: function() {
+		if(this.backgrounds.home) {
+			this.stages.home.removeChild(this.backgrounds.home);
+		}
+		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
+		this.backgrounds.home = new PIXI.extras.TilingSprite(
+			texture,
+			renderTools.getNodeWidth(homeLevel.root, true) + globals.viewport.width,
+			renderTools.getNodeHeight(homeLevel.root, true) + globals.viewport.height
+		);
+		this.backgrounds.home.position.x = globals.viewport.width/-2;
+		this.backgrounds.home.position.y = globals.viewport.height/-2;
+		this.stages.home.addChild(this.backgrounds.home);
+
 		this.gameState.set({
 			stage: 'home',
 			level: homeLevel,
