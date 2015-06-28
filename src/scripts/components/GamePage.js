@@ -210,9 +210,9 @@ module.exports = React.createClass({
 
 		var newY = y+globals.node.size.height+globals.node.spacing.y;
 		var previousNode = null;
+		var newX = x;
 
 		for(var i=0; i<node.children.length; i++) {
-			var newX = x;
 			if(previousNode) {
 				newX += this.getNodeWidth(previousNode, true) + globals.node.spacing.x;
 			}
