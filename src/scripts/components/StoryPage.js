@@ -12,8 +12,10 @@ module.exports = React.createClass({
 	},
 	render: function() {
 		return (
-			<section id="typed">
-				<a href="#game">Play Game</a>
+			<section id="wrapper">
+				<section id="typed">
+					<a href="#game">Play Game</a>
+				</section>
 			</section>
 		);
 	}

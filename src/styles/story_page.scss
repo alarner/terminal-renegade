@@ -1,0 +1,19 @@
+body {
+	background: #070707 url('/images/story_page_bg.png') 0 0 repeat;
+}
+
+
+#container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 800px;
+	height: 605px;
+	background: #141414 url('images/homepage_bg.png') 0 0 no-repeat;
+	border: 5px solid #565656;
+}
+
+nav {
+	display: none;
+}
