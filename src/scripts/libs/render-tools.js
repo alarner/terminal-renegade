@@ -9,7 +9,6 @@ module.exports = {
 		return newLevel;
 	},
 	setDefaults: function(node) {
-		console.log(node);
 		if(!node.say) node.say = [];
 		if(!node.messages) node.messages = [];
 		if(!node.children) node.children = [];

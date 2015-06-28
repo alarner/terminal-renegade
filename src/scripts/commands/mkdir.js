@@ -3,8 +3,8 @@ var _ = require('lodash');
 module.exports = function(args, gameState) {
 	var home = '/home/'+globals.characterName;
 	var path = home;
-	if(args._.length > 1) {
-		path = args._[1];
+	if(args.length) {
+		path = args[0];
 	}
 
 	var currentNode = null;
@@ -30,6 +30,8 @@ module.exports = function(args, gameState) {
 	var pieces = _.filter(path.split('/'), function(piece) {
 		return piece.length;
 	});
+
+	console.log(currentNode);
 
 	for(var i=0; i<pieces.length; i++) {
 		if(pieces[i] === '..') {

@@ -64,15 +64,9 @@ module.exports = function() {
 		var x = -chat.width/2;
 		var y = -1*this.container.height - chat.height/2 - 30;
 
-		console.log(this.container.width, chat.width, x);
-
 		this.container.addChild(chat);
 
 		chat.position.x = x;
 		chat.position.y = y;
-
-		console.log(textBounds);
-
-
 	};
 };

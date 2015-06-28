@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
+var minimist = require('minimist');
 var commands = {
 	cd: require('../commands/cd'),
 	exit: require('../commands/exit')
@@ -73,16 +74,18 @@ module.exports = React.createClass({
 			return piece;
 		});
 
-		if(!args.length) return;
+		var argv = minimist(args);
+
+		if(!argv._.length) return;
 		this.history.unshift(command);
 
-		var c = args.shift().toLowerCase();
-		if(!this.props.gameState.availableCommands.get(c.toLowerCase())) {
+		var c = argv._[0].toLowerCase();
+		if(!this.props.gameState.availableCommands.get(c)) {
 			return 'You don\'t have a command called `'+c+'`';
 		}
 		if(!commands.hasOwnProperty(c)) {
 			return 'Command not found: `'+c+'`';
 		}
-		return commands[c](args, this.props.gameState);
+		return commands[c](argv, this.props.gameState);
 	}
 });

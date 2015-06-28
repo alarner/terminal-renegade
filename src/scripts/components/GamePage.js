@@ -42,8 +42,6 @@ module.exports = React.createClass({
 		this.gameState.on('change:currentNode', this.onNodeChanged);
 	},
 	onCommand: function(output, command) {
-		console.log('onCommand')
-		console.log(output, command);
 		if(output) {
 			this.gameState.get('character').say(output, true);
 		}
@@ -61,14 +59,12 @@ module.exports = React.createClass({
 		this.goHome();
 	},
 	onGameStateChanged: function() {
-		console.log('onGameStateChanged');
 		renderTools.draw(
 			this.stages[this.gameState.get('stage')],
 			this.gameState
 		);
 	},
 	onNodeChanged: function() {
-		console.log('onNodeChanged');
 		var node = this.gameState.get('currentNode');
 
 		if(!node) return;
