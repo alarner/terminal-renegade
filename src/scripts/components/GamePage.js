@@ -95,7 +95,7 @@ module.exports = React.createClass({
 			// hacky
 			setTimeout(function() {
 				self.gameState.get('character').say(say.message, say.danger);
-			}, 1);
+			}, 100);
 		}
 
 		if(node === homeLevel.root.children[0]) {
@@ -194,6 +194,10 @@ module.exports = React.createClass({
 				</div>
 			);
 		}
+
+		var items = this.gameState.availableCommands[this.gameState.get('stage')].map(function(item) {
+			// return 
+		});
 		return (
 			<section ref="game" className="play">
 				<nav>
