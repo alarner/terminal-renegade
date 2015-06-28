@@ -1,8 +1,27 @@
 var _ = require('lodash');
+var globals = require('../globals');
 module.exports = {
-	getNodeFromPath: function(path, gameState, parents) {
+	normalizePath: function(path) {
+		var home = '/home/'+globals.characterName;
+		var p = home;
+		if(path) {
+			p = path;
+		}
+
+		if(p.length === 1 && p.charAt(0) === '~') {
+			p = home;
+		}
+		else if(p.substring(0, 2) == '~/') {
+			p = home + p.substring(1);
+		}
+		else if(p.substring(0, 2) == './') {
+			p = p.substring(2);
+		}
+		console.log('normalizePath', p);
+		return p;
+	},
+	getNodeFromPath: function(path, gameState) {
 		var currentNode = gameState.get('currentNode');
-		if(!currentNode) throw 'No current node!';
 
 		if(path.charAt(0) === '/') {
 			path = path.substring(1);
@@ -27,14 +46,18 @@ module.exports = {
 					currentNode = node;
 				}
 				else if(node && node.type !== 'directory') {
-					return 'cd: not a directory: '+args[0];
+					throw 'not a directory: '+args[0];
 				}
 				else {
-					return 'cd: no such file or directory: '+args[0];
+					throw 'no such file or directory: '+args[0];
 				}
 			}
 		}
 		return currentNode;
+	},
+
+	getPathFromCommand: function(command) {
+
 	},
 
 	createNode: function(name, isDir, parent) {

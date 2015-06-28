@@ -1,10 +1,12 @@
 var React = require('react');
 var _ = require('lodash');
 var minimist = require('minimist');
+var clTools = require('../libs/command-tools');
 var commands = {
 	cd: require('../commands/cd'),
 	exit: require('../commands/exit'),
-	mkdir: require('../commands/mkdir')
+	mkdir: require('../commands/mkdir'),
+	open: require('../commands/open')
 };
 
 var KEY = {
@@ -48,6 +50,22 @@ module.exports = React.createClass({
 	keyDown: function(e) {
 		if(e.which == KEY.TAB) {
 			e.preventDefault();
+			var pieces = this.refs.input.getDOMNode().value.split('/');
+			var search = pieces.pop();
+			var parentPath = pieces.join('/');
+			try {
+				var currentNode = clTools.getNodeFromPath(parentPath, this.props.gameState);
+				var options = _.filter(currentNode.children, function(child) {
+					console.log(child.name, search, _.startsWith(child.name, search));
+					return _.startsWith(child.name, search);
+				});
+				console.log(search);
+				console.log(currentNode);
+				console.log(options);
+			}
+			catch(e) {
+				console.log(e);
+			}
 		}
 		else if(e.which === KEY.UP) {
 			e.preventDefault();
@@ -87,6 +105,12 @@ module.exports = React.createClass({
 		if(!commands.hasOwnProperty(c)) {
 			return 'Command not found: `'+c+'`';
 		}
-		return commands[c](argv, this.props.gameState);
+
+		try {
+			return commands[c].run(argv, this.props.gameState);
+		}
+		catch(e) {
+			return e;
+		}
 	}
 });

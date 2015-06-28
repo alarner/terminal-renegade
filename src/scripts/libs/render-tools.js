@@ -161,7 +161,7 @@ module.exports = {
 	},
 	drawLine: function(parent, child){
 		var graphics = new PIXI.Graphics();
-		graphics.lineStyle(3, 0xFF0000);
+		graphics.lineStyle(10, 0x2C2A7C);
 		graphics.moveTo(parent.position.x, parent.position.y);
 		graphics.lineTo(child.position.x, child.position.y);
 		return graphics;
