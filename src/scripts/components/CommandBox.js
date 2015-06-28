@@ -8,7 +8,8 @@ var commands = {
 var KEY = {
 	ENTER: 13,
 	UP: 38,
-	DOWN: 40
+	DOWN: 40,
+	TAB: 9
 };
 
 module.exports = React.createClass({
@@ -27,7 +28,7 @@ module.exports = React.createClass({
 			padding: '4px'
 		};
 		return (
-			<input type="text" onKeyUp={this.keyUp} ref="input" style={style} />
+			<input type="text" onKeyUp={this.keyUp} onKeyDown={this.keyDown} ref="input" style={style} />
 		);
 	},
 	focus: function() {
@@ -41,6 +42,11 @@ module.exports = React.createClass({
 			this.historyPosition = 0;
 			return this.props.callback(error, command);
 		}
+	},
+	keyDown: function(e) {
+		if(e.which == KEY.TAB) {
+			e.preventDefault();
+		}
 		else if(e.which === KEY.UP) {
 			e.preventDefault();
 			this.historyPosition++;
@@ -52,7 +58,7 @@ module.exports = React.createClass({
 		}
 		else if(e.which === KEY.DOWN) {
 			e.preventDefault();
-			this.historyPosition++;
+			this.historyPosition--;
 			if(this.historyPosition < 1) {
 				this.refs.input.getDOMNode().value = '';
 				this.historyPosition = 0;
