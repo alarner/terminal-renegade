@@ -204,6 +204,7 @@ module.exports = React.createClass({
 		);
 	},
 	componentDidMount: function() {
+		console.log('componentDidMount');
 		this.refs.stage.getDOMNode().appendChild(
 			this.renderer.view
 		);
@@ -214,13 +215,11 @@ module.exports = React.createClass({
 			character: character
 		});
 		this.goHome();
-
-		var self = this;
-		setTimeout(function() {
-			self.refs.commandBox.getDOMNode().focus();
-		}, 20)
-
 		this.animate();
+	},
+	componentDidUpdate: function() {
+		console.log('componentDidUpdate');
+		this.refs.commandBox.getDOMNode().focus();
 	},
 	animate: function() {
 		// start the timer for the next animation loop
