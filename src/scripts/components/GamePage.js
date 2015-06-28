@@ -24,7 +24,8 @@ module.exports = React.createClass({
 		this.gameState.availableCommands = new CommandCollection();
 		this.gameState.availableCommands.add([
 			{id: 'cd'},
-			{id: 'exit'}
+			{id: 'exit'},
+			{id: 'mkdir'}
 		]);
 		this.renderer = new PIXI.WebGLRenderer(
 			globals.viewport.width,

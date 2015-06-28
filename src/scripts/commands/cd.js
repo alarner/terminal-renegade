@@ -7,26 +7,25 @@ module.exports = function(args, gameState) {
 		path = args._[1];
 	}
 
-	var currentNode = null;
+	if(path.length === 1 && path.charAt(0) === '~') {
+		path = home;
+	}
+	else if(path.substring(0, 2) == '~/') {
+		path = home + path.substring(1);
+	}
+	else if(path.substring(0, 2) == './') {
+		path = path.substring(2);
+	}
+	
+
+	var currentNode = gameState.get('currentNode');
+	if(!currentNode) throw 'No current node!';
+
 	if(path.charAt(0) === '/') {
 		path = path.substring(1);
 		currentNode = gameState.get('level').root;
 	}
-	else {
-		currentNode = gameState.get('currentNode');
-
-		if(path.length === 1 && path.charAt(0) === '~') {
-			path = home;
-		}
-		else if(path.substring(0, 2) == '~/') {
-			path = home + path.substring(1);
-		}
-		else if(path.substring(0, 2) == './') {
-			path = path.substring(2);
-		}
-	}
 	
-
 	var pieces = _.filter(path.split('/'), function(piece) {
 		return piece.length;
 	});

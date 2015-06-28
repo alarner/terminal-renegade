@@ -3,7 +3,8 @@ var _ = require('lodash');
 var minimist = require('minimist');
 var commands = {
 	cd: require('../commands/cd'),
-	exit: require('../commands/exit')
+	exit: require('../commands/exit'),
+	mkdir: require('../commands/mkdir')
 };
 
 var KEY = {
