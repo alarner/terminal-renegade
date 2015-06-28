@@ -9,5 +9,9 @@ module.exports = {
 			y: 40
 		}
 	},
+	viewport: {
+		width: 800,
+		height: 600
+	},
 	characterName: 'Rae'
 }

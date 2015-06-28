@@ -1,7 +1,8 @@
 var React = require('react');
 var _ = require('lodash');
 var commands = {
-	cd: require('../commands/cd')
+	cd: require('../commands/cd'),
+	exit: require('../commands/exit')
 };
 
 var KEY = {
@@ -11,9 +12,8 @@ var KEY = {
 };
 
 module.exports = React.createClass({
-	getInitialState: function() {
-		return { historyPosition: 0 };
-	},
+	historyPosition: 0,
+	history: [],
 	render: function() {
 		var style = {
 			width: '800px',
@@ -32,29 +32,30 @@ module.exports = React.createClass({
 	},
 	keyUp: function(e) {
 		if(e.which === KEY.ENTER) {
-			var error = this.executeCommand(this.refs.input.getDOMNode().value);
+			var command = this.refs.input.getDOMNode().value;
+			var error = this.executeCommand(command);
 			this.refs.input.getDOMNode().value = '';
-			this.setState({ historyPosition: 0 });
-			return;
+			this.historyPosition = 0;
+			return this.props.callback(error, command);
 		}
 		else if(e.which === KEY.UP) {
 			e.preventDefault();
-			var historyPosition = this.state.historyPosition + 1;
-			var history = this.props.gameState.get('history');
-			if(history.length < historyPosition) return;
-			this.setState({ historyPosition: historyPosition });
-			this.refs.input.getDOMNode().value = history[historyPosition-1];
+			this.historyPosition++;
+			if(this.history.length < this.historyPosition) {
+				this.historyPosition = this.history.length;
+				return;
+			}
+			this.refs.input.getDOMNode().value = this.history[this.historyPosition-1];
 		}
 		else if(e.which === KEY.DOWN) {
 			e.preventDefault();
-			var historyPosition = this.state.historyPosition - 1;
-			if(historyPosition < 1) {
+			this.historyPosition++;
+			if(this.historyPosition < 1) {
 				this.refs.input.getDOMNode().value = '';
+				this.historyPosition = 0;
 				return;
 			}
-			var history = this.props.gameState.get('history');
-			this.setState({ historyPosition: historyPosition });
-			this.refs.input.getDOMNode().value = history[historyPosition-1];
+			this.refs.input.getDOMNode().value = this.history[this.historyPosition-1];
 		}
 	},
 	executeCommand: function(command) {
@@ -64,32 +65,15 @@ module.exports = React.createClass({
 		});
 
 		if(!args.length) return;
+		this.history.unshift(command);
 
-		var history = this.props.gameState.get('history');
-		history.unshift(command);
-		this.props.gameState.set({ history: history });
-		console.log(this.props.gameState.get('history'));
-
-		var command = args.shift().toLowerCase();
-
-		if(this.props.gameState.get('commandsAvailable').indexOf(command) < 0) {
-			this.say('You don\'t have a command called `'+command+'`');
-			return;
+		var c = args.shift().toLowerCase();
+		if(!this.props.gameState.availableCommands.get(c.toLowerCase())) {
+			return 'You don\'t have a command called `'+c+'`';
 		}
-
-		if(!commands.hasOwnProperty(command)) {
-			this.say('Command not found: `'+command+'`');
-			return;
+		if(!commands.hasOwnProperty(c)) {
+			return 'Command not found: `'+c+'`';
 		}
-
-		var commandOutput = commands[command](args, this.props.gameState, this.props.level);
-		if(commandOutput) {
-			this.say(commandOutput);
-		}
-	},
-
-	say: function(message) {
-		console.log(message);
-		this.props.gameState.set({chatText: message});
+		return commands[command](args, this.props.gameState);
 	}
 });

@@ -15,16 +15,26 @@
   "bugs": {
     "url": "https://github.com/alarner/clash/issues"
   },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.min.js",
+    "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+  },
+  "browserify-shim": {
+    "jquery": "global:$"
+  },
   "homepage": "https://github.com/alarner/clash#readme",
   "dependencies": {
     "backbone": "^1.2.1",
+    "bootstrap": "^3.3.5",
+    "classnames": "^1.2.2",
     "gsap": "greensock/GreenSock-JS",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "ngraph.generators": "0.0.15",
     "ngraph.pixi": "0.0.2",
     "pixi.js": "^3.0.6",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "react-modal": "^0.2.0"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
