@@ -3,6 +3,7 @@ var PIXI = require('pixi.js');
 var globals = require('../globals');
 var CommandBox = require('./CommandBox');
 var GameState = require('../models/GameState');
+var TweenMax = require('gsap');
 
 function updateParents(node, parent) {
 	if(parent) {
@@ -33,7 +34,6 @@ module.exports = React.createClass({
 	getInitialState: function() {
 		var level = {
 			renderer: new PIXI.WebGLRenderer(800, 600),
-			viewport: new PIXI.Container(),
 			stage: new PIXI.Container(),
 			number: null
 		};
@@ -41,8 +41,6 @@ module.exports = React.createClass({
 			renderer: new PIXI.WebGLRenderer(800, 600),
 			stage: new PIXI.Container()
 		};
-
-		level.viewport.addChild(level.stage);
 
 		return {
 			page: 'home',
@@ -185,6 +183,18 @@ module.exports = React.createClass({
 			character.position.x = currentNode._display.position.x;
 			character.position.y = currentNode._display.position.y - 20;
 		}
+
+		// Center stage
+		if(currentNode._display) {
+			TweenMax.to(
+				this.state.level.stage.position,
+				0.5,
+				{
+					x: this.state.level.renderer.width/2 - currentNode._display.x,
+					y: this.state.level.renderer.height/2 - currentNode._display.y
+				}
+			);
+		}
 	},
 	generateNode: function(node, defaultDisplay) {
 		if(node._display) return node._display;
@@ -242,7 +252,7 @@ module.exports = React.createClass({
 			this.state.home.renderer.render(this.state.home.stage);
 		}
 		else if(this.state.page === 'level') {
-			this.state.level.renderer.render(this.state.level.viewport);
+			this.state.level.renderer.render(this.state.level.stage);
 		}
 	}
 });

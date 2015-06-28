@@ -18,6 +18,7 @@
   "homepage": "https://github.com/alarner/clash#readme",
   "dependencies": {
     "backbone": "^1.2.1",
+    "gsap": "greensock/GreenSock-JS",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "ngraph.generators": "0.0.15",

@@ -91,11 +91,21 @@ module.exports = {
 					},
 					{
 						name: 'b',
-						created: false,
+						created: true,
 						type: 'directory',
 						items: [],
 						children: [
-							
+							{
+								name: 'c',
+								created: false,
+								type: 'directory',
+								items: [],
+								children: [
+									
+								], // nodes go here
+								itemsVisible: true,
+								messages: []
+							}
 						], // nodes go here
 						itemsVisible: true,
 						messages: []
