@@ -18,10 +18,11 @@ module.exports = {
 	},
 	run: function(args, gameState) {
 		var path = this.getPath(args, gameState);
-		if(path === null) return false;
 		var parents = false;
 
 		var originalPath = path;
+		path = clTools.normalizePath(path);
+		if(path === null) throw 'mkdir: cannot create directory ‘'+originalPath+'’: File exists';
 
 		if(args.p) parents = true;
 
