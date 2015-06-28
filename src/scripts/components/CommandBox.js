@@ -50,15 +50,52 @@ module.exports = React.createClass({
 	keyDown: function(e) {
 		if(e.which == KEY.TAB) {
 			e.preventDefault();
-			var pieces = this.refs.input.getDOMNode().value.split('/');
+			var path = null;
+			var command = this.refs.input.getDOMNode().value;
+			if(!command) return;
+			var args = _.filter(command.split(/\s+/), function(piece) {
+				return piece;
+			});
+			var argv = minimist(args);
+			if(!argv._.length) return;
+
+			var c = argv._[0].toLowerCase();
+
+			if(!this.props.gameState.availableCommands.get(c) || !commands.hasOwnProperty(c)) {
+				return;
+			}
+				
+			try {
+				path = commands[c].getPath(argv, this.props.gameState);
+				if(!path) return;
+			}
+			catch(e) {
+				return;
+			}
+
+			var pieces = path.split('/');
 			var search = pieces.pop();
 			var parentPath = pieces.join('/');
+
 			try {
 				var currentNode = clTools.getNodeFromPath(parentPath, this.props.gameState);
 				var options = _.filter(currentNode.children, function(child) {
 					console.log(child.name, search, _.startsWith(child.name, search));
 					return _.startsWith(child.name, search);
 				});
+				if(options.length === 1) {
+					var pieces = command.split(' ');
+					var prefix = pieces.pop();
+					var pathPieces = prefix.split('/');
+					pathPieces.pop();
+					pathPieces.push(options[0].name);
+
+					var newInput = pieces.join(' ') + ' ' + pathPieces.join('/');
+					if(options[0].type === 'directory') {
+						newInput += '/';
+					}
+					this.refs.input.getDOMNode().value = newInput;
+				}
 				console.log(search);
 				console.log(currentNode);
 				console.log(options);
