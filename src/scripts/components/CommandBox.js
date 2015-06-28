@@ -49,6 +49,7 @@ module.exports = React.createClass({
 	},
 	keyDown: function(e) {
 		if(e.which == KEY.TAB) {
+			console.log('tab1')
 			e.preventDefault();
 			var path = null;
 			var command = this.refs.input.getDOMNode().value;
@@ -72,6 +73,8 @@ module.exports = React.createClass({
 			catch(e) {
 				return;
 			}
+
+			console.log('tab2')
 
 			var pieces = path.split('/');
 			var search = pieces.pop();

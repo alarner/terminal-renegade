@@ -1,0 +1,27 @@
+html, body, #container, main {
+	margin: 0;
+	height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Orbitron';
+	font-weight: bold;
+}
+
+h4 {
+	margin: 0.7em 0;
+	font-size: 0.9em;
+}
+canvas {
+	display: block;
+}
+main > div {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 1000px;
+	height: 600px;
+	background: #141414 url('/images/homepage_bg.png') 0 0 repeat;
+	border: 5px solid #565656;
+}

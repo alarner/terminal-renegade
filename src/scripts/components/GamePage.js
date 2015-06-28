@@ -148,8 +148,13 @@ module.exports = React.createClass({
 				itemsCollected: 0,
 				currentNode: newLevel.root
 			});
+			this.forceUpdate();
 		}
 	},
+	// onGameClick: function(e) {
+	// 	console.log('onGameClick');
+	// 	this.refs.commandBox.getDOMNode().focus();
+	// },
 	cancelModal: function(name) {
 		var self = this;
 		return function(e) {
@@ -178,18 +183,29 @@ module.exports = React.createClass({
 			itemsCollected: 0,
 			currentNode: homeLevel.root
 		});
+		this.forceUpdate();
 	},
 	render: function() {
+		var level = null;
+		if(this.gameState.get('stage') === 'play') {
+			level = (
+				<div className="level">
+					<h4>Level {this.gameState.get('level').number}</h4>
+					<h4 className="level-name">{this.gameState.get('level').name}</h4>
+				</div>
+			);
+		}
 		return (
-			<section ref="game">
-				<div className="top">
-					<nav>
-						nav
-					</nav>
+			<section ref="game" className="play">
+				<nav>
+					<div className="headshot-level">
+						<img src="/images/active_character.png" className="headshot" />
+						{level}
+					</div>
+				</nav>
+				<div className="right">
 					<div ref="stage">
 					</div>
-				</div>
-				<div className="bottom">
 					<CommandBox
 						callback={this.onCommand}
 						gameState={this.gameState}

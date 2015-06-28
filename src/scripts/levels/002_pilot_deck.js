@@ -1,6 +1,8 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
+	number: 1,
+	name: 'Pilot Deck',
 	display: function() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);

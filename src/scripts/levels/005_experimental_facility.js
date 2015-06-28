@@ -1,6 +1,8 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
+	number: 4,
+	name: 'Laboratory',
 	display: function() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);

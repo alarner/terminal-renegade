@@ -36,14 +36,18 @@ module.exports = React.createClass({
 			display: this.state.page === 'game' ? 'block' : 'none'
 		};
 		return (
-			<main>
+			<main onClick={this.onAppClick}>
 				<div style={storyStyle}>
 					<StoryPage />
 				</div>
 				<div style={gameStyle}>
-					<GamePage />
+					<GamePage ref="game" />
 				</div>
 			</main>
 		);
+	},
+	onAppClick: function() {
+		console.log('onAppClick');
+		this.refs.game.refs.commandBox.focus()
 	}
 });

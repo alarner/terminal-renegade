@@ -138,7 +138,7 @@ module.exports = {
 					},
 					{
 						name: 'sewage_pipes',
-						created: false,
+						created: true,
 						type: 'directory',
 						items: [],
 						itemsVisible: true,

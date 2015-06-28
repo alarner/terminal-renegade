@@ -16,6 +16,7 @@ module.exports = {
 	},
 	getNewNode: function(args, gameState) {
 		var path = this.getPath(args, gameState);
+		console.log('getNewNode', path);
 		var originalPath = path;
 		if(path === null) return false;
 
@@ -36,6 +37,9 @@ module.exports = {
 				if(currentNode._parent) {
 					currentNode = currentNode._parent;
 				}
+			}
+			else if(pieces[i] === '.') {
+				continue;
 			}
 			else {
 				var node = _.find(currentNode.children, function(child) {

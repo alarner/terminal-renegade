@@ -1,0 +1,39 @@
+.play {
+	width: 1000px;
+	height: 600px;
+	nav {
+		float: left;
+		width: 200px;
+		height: 100%;
+		background: #131313;
+		border-right: 5px solid #000;
+		box-sizing: border-box;
+		padding: 20px;
+
+		.headshot {
+			width: 50px;
+			height: 50px;
+			display: block;
+			float: left;
+			margin-right: 8px;
+		}
+
+		.level {
+			float: left;
+			color: #D9D6D2;
+
+			h4 {
+				margin: 0.7em 0 0.4em 0;
+			}
+
+			.level-name {
+				margin-top: 0.4em;
+			}
+		}
+	}
+
+	.right {
+		float: left;
+		width: 800px;
+	}
+}
