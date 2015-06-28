@@ -182,7 +182,8 @@ module.exports = React.createClass({
 		this.state.level.stage.addChild(character);
 		var currentNode = gameState.get('currentNode');
 		if(currentNode && currentNode._display) {
-			character.position = currentNode._display.position;
+			character.position.x = currentNode._display.position.x;
+			character.position.y = currentNode._display.position.y - 20;
 		}
 	},
 	generateNode: function(node, defaultDisplay) {
