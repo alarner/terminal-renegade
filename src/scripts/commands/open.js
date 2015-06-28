@@ -1,3 +1,13 @@
+var cd = require('./cd');
+module.exports = {
+	getPath: function(args, gameState) {
+		return cd.getPath(args, gameState);
+	},
+	run: function(args, gameState) {
+		var openNode = cd.getNewNode(args, gameState);
+		gameState.trigger('start', {node: openNode});
+	}
+};
 // var globals = require('../globals');
 // var _ = require('lodash');
 // var clTools = require('../libs/command-tools');

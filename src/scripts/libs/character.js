@@ -19,6 +19,7 @@ module.exports = function() {
 	this.container.addChild(this.character);
 
 	this.say = function(message, error) {
+		console.log(message);
 		if(chat) {
 			this.container.removeChild(chat);
 		}
@@ -29,8 +30,7 @@ module.exports = function() {
 			align : 'center',
 			wordWrap: true,
 			wordWrapWidth: 200,
-			padding:
- 5,
+			padding:5,
 			fill: 0x141414
 		};
 		var text = new PIXI.Text(

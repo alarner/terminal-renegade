@@ -104,6 +104,7 @@ module.exports = {
 						type: 'directory',
 						items: [],
 						itemsVisible: true,
+						levelName: 'pilot_deck',
 						messages: [
 						],
 						say: [
@@ -119,6 +120,7 @@ module.exports = {
 								type: 'directory',
 								items: [],
 								itemsVisible: true,
+								levelName: 'biodome',
 								messages: [],
 								children: []
 							},
@@ -128,6 +130,7 @@ module.exports = {
 								type: 'directory',
 								items: [],
 								itemsVisible: true,
+								levelName: 'laboratory',
 								messages: [],
 								children: []
 							}
@@ -139,6 +142,7 @@ module.exports = {
 						type: 'directory',
 						items: [],
 						itemsVisible: true,
+						levelName: 'sewage_pipes',
 						messages: [],
 						children: [
 							{

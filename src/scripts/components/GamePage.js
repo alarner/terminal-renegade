@@ -12,6 +12,14 @@ var Character = require('../libs/character');
 
 var homeLevel = renderTools.loadFreshLevel(require('../levels/_home'));
 
+var levels = {
+	'pilot_deck': require('../levels/002_pilot_deck'),
+	'sewage_pipes': require('../levels/003_sewage_pipes'),
+	'biodome': require('../levels/004_biodome'),
+	'laboratory': require('../levels/005_experimental_facility'),
+	'outer_space': require('../levels/006_outer_space')
+};
+
 module.exports = React.createClass({
 	getInitialState: function() {
 		return {
@@ -25,7 +33,8 @@ module.exports = React.createClass({
 		this.gameState.availableCommands.add([
 			{id: 'cd'},
 			{id: 'exit'},
-			{id: 'mkdir'}
+			{id: 'mkdir'},
+			{id: 'open'}
 		]);
 		this.renderer = new PIXI.WebGLRenderer(
 			globals.viewport.width,
@@ -45,6 +54,7 @@ module.exports = React.createClass({
 		Modal.setAppElement(document.body);
 
 		this.gameState.on('exit', this.onExitGame);
+		this.gameState.on('start', this.onStartLevel);
 		this.gameState.on('change', this.onGameStateChanged);
 		this.gameState.on('change:currentNode', this.onNodeChanged);
 	},
@@ -101,6 +111,45 @@ module.exports = React.createClass({
 			console.log('go to outer space');
 		}
 	},
+	onStartLevel: function(e) {
+		if(this.gameState.get('stage') !== 'home') return;
+		var self = this;
+		if(!e.node.levelName) {
+			setTimeout(function() {
+				self.gameState.get('character').say('There doesn\'t seem to be anything there.');
+			}, 20);
+		}
+		else if(!levels.hasOwnProperty(e.node.levelName)) {
+			setTimeout(function() {
+				self.gameState.get('character').say('Something bad happened.');
+			}, 20);
+		}
+		else {
+			console.log(3);
+			var newLevel = renderTools.loadFreshLevel(levels[e.node.levelName]);
+			if(this.backgrounds.play) {
+				this.stages.play.removeChild(this.backgrounds.play);
+				this.backgrounds.play = null;
+			}
+			if(newLevel.backgroundImage) {
+				var texture = PIXI.Texture.fromImage(newLevel.backgroundImage);
+				this.backgrounds.play = new PIXI.extras.TilingSprite(
+					texture,
+					renderTools.getNodeWidth(newLevel.root, true) + globals.viewport.width,
+					renderTools.getNodeHeight(newLevel.root, true) + globals.viewport.height
+				);
+				this.backgrounds.play.position.x = globals.viewport.width/-2;
+				this.backgrounds.play.position.y = globals.viewport.height/-2;
+				this.stages.play.addChild(this.backgrounds.play);
+			}
+			this.gameState.set({
+				stage: 'play',
+				level: newLevel,
+				itemsCollected: 0,
+				currentNode: newLevel.root
+			});
+		}
+	},
 	cancelModal: function(name) {
 		var self = this;
 		return function(e) {
@@ -127,7 +176,6 @@ module.exports = React.createClass({
 			stage: 'home',
 			level: homeLevel,
 			itemsCollected: 0,
-			level: homeLevel,
 			currentNode: homeLevel.root
 		});
 	},
