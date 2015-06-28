@@ -17,7 +17,7 @@ body {
   transform: translate(-50%, -50%);
   width: 800px;
   height: 605px;
-  background: #141414 url("images/homepage_bg.png") 0 0 no-repeat;
+  background: #141414 url("/images/homepage_bg.png") 0 0 repeat;
   border: 5px solid #565656; }
 
 nav {
