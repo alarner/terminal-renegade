@@ -1,6 +1,7 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
+	backgroundImage: '/images/homepage_bg.png',
 	display: function() {
 		var container = new PIXI.Container();
 		var texture;

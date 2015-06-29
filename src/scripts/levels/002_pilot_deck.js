@@ -12,12 +12,14 @@ module.exports = {
 		graphics.drawRect(0, 0, globals.node.size.width-5, globals.node.size.height-5);
 		return graphics;
 	},
-	root:{
+	root: {
 		name: '/',
 		items: [],
 		children: [], // nodes go here
 		itemsVisible: true,
-		messages: []
+		messages: [],
+		children: [
+		]
 	}
 }
 

@@ -78,9 +78,24 @@ module.exports = {
 		return height;
 	},
 	draw: function(stage, gameState) {
+		console.log('draw');
+		stage.removeChildren();
 		var level = gameState.get('level');
 		var currentNode = gameState.get('currentNode');
 		var character = gameState.get('character');
+
+
+		if(level && level.backgroundImage) {
+			var texture = PIXI.Texture.fromImage(level.backgroundImage);
+			var bg = new PIXI.extras.TilingSprite(
+				texture,
+				this.getNodeWidth(level.root, true) + globals.viewport.width,
+				this.getNodeHeight(level.root, true) + globals.viewport.height
+			);
+			bg.position.x = globals.viewport.width/-2;
+			bg.position.y = globals.viewport.height/-2;
+			stage.addChild(bg);
+		}
 
 		// Draw map
 		if(level && level.root) {

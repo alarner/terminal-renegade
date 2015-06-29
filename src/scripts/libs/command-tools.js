@@ -20,7 +20,6 @@ module.exports = {
 		else if(p.substring(0, 2) == './') {
 			p = p.substring(2);
 		}
-		console.log('normalizePath', p);
 		return p;
 	},
 	getNodeFromPath: function(path, gameState) {

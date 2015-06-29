@@ -72,8 +72,24 @@ module.exports = {
 		if(node && node.created) {
 			throw 'mkdir: cannot create directory ‘'+originalPath+'’: File exists';
 		}
-		var newNode = clTools.createNode(dirname, true, currentNode);
-		currentNode.children.push(newNode);
+
+		if(node && node.type === 'directory' && !node.created) {
+			node.created = true;
+			delete node._display;
+		}
+		else {
+			var newNode = clTools.createNode(dirname, true, currentNode);
+			currentNode.children.push(newNode);
+
+			// Clear out _width and _height properties of all parent nodes
+			var parent = currentNode;
+			while(parent) {
+				delete parent._width;
+				delete parent._height;
+				parent = parent.parent;
+			}
+		}
+
 		gameState.trigger('change');
 		return false;
 	}

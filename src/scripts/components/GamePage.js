@@ -62,6 +62,8 @@ module.exports = React.createClass({
 		this.gameState.on('start', this.onStartLevel);
 		this.gameState.on('change', this.onGameStateChanged);
 		this.gameState.on('change:currentNode', this.onNodeChanged);
+		this.gameState.availableCommands.home.on('add', this.onNewCommand);
+		this.gameState.availableCommands.play.on('add', this.onNewCommand);
 	},
 	onCommand: function(output, command) {
 		if(output) {
@@ -81,10 +83,15 @@ module.exports = React.createClass({
 		this.goHome();
 	},
 	onGameStateChanged: function() {
+		console.log('onGameStateChanged');
 		renderTools.draw(
 			this.stages[this.gameState.get('stage')],
 			this.gameState
 		);
+	},
+	onNewCommand: function() {
+		console.log('onNewCommand');
+		this.forceUpdate();
 	},
 	onNodeChanged: function() {
 		var node = this.gameState.get('currentNode');
@@ -130,22 +137,10 @@ module.exports = React.createClass({
 			}, 20);
 		}
 		else {
-			console.log(3);
 			var newLevel = renderTools.loadFreshLevel(levels[e.node.levelName]);
 			if(this.backgrounds.play) {
 				this.stages.play.removeChild(this.backgrounds.play);
 				this.backgrounds.play = null;
-			}
-			if(newLevel.backgroundImage) {
-				var texture = PIXI.Texture.fromImage(newLevel.backgroundImage);
-				this.backgrounds.play = new PIXI.extras.TilingSprite(
-					texture,
-					renderTools.getNodeWidth(newLevel.root, true) + globals.viewport.width,
-					renderTools.getNodeHeight(newLevel.root, true) + globals.viewport.height
-				);
-				this.backgrounds.play.position.x = globals.viewport.width/-2;
-				this.backgrounds.play.position.y = globals.viewport.height/-2;
-				this.stages.play.addChild(this.backgrounds.play);
 			}
 			this.gameState.set({
 				stage: 'play',
@@ -171,15 +166,6 @@ module.exports = React.createClass({
 		if(this.backgrounds.home) {
 			this.stages.home.removeChild(this.backgrounds.home);
 		}
-		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
-		this.backgrounds.home = new PIXI.extras.TilingSprite(
-			texture,
-			renderTools.getNodeWidth(homeLevel.root, true) + globals.viewport.width,
-			renderTools.getNodeHeight(homeLevel.root, true) + globals.viewport.height
-		);
-		this.backgrounds.home.position.x = globals.viewport.width/-2;
-		this.backgrounds.home.position.y = globals.viewport.height/-2;
-		this.stages.home.addChild(this.backgrounds.home);
 
 		this.gameState.set({
 			stage: 'home',
@@ -201,7 +187,6 @@ module.exports = React.createClass({
 		}
 
 		var powerupElements = this.gameState.availableCommands[this.gameState.get('stage')].map(function(pu) {
-			console.log(pu);
 			if(!powerups.hasOwnProperty(pu.id)) {
 				return <div>bad powerup {pu.id}</div>
 			}
@@ -253,7 +238,6 @@ module.exports = React.createClass({
 		);
 	},
 	componentDidMount: function() {
-		console.log('componentDidMount');
 		this.refs.stage.getDOMNode().appendChild(
 			this.renderer.view
 		);
@@ -267,7 +251,6 @@ module.exports = React.createClass({
 		this.animate();
 	},
 	componentDidUpdate: function() {
-		console.log('componentDidUpdate');
 		this.refs.commandBox.getDOMNode().focus();
 	},
 	animate: function() {

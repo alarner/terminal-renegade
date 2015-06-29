@@ -47,7 +47,6 @@ module.exports = React.createClass({
 		);
 	},
 	onAppClick: function() {
-		console.log('onAppClick');
 		this.refs.game.refs.commandBox.focus()
 	}
 });
