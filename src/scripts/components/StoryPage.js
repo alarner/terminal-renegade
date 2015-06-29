@@ -14,6 +14,12 @@ module.exports = React.createClass({
 		return (
 			<section id="wrapper">
 				<section id="typed">
+					<div id="header-img">
+						<img src="/images/story_page_banner.png" />
+					</div>
+					<p>
+						Lightyears away, in the deepest depths of the galaxy...
+					</p>
 					<a href="#game">Play Game</a>
 				</section>
 			</section>

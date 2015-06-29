@@ -10,6 +10,19 @@
 body {
   background: #070707 url("/images/story_page_bg.png") 0 0 repeat; }
 
+p {
+  font-size: 28px;
+  color: #fff;
+  font-weight: 400;
+  font-family: 'Metrophobic', Helvetica, sans-serif; }
+
+a {
+  font-size: 18px;
+  font-family: 'Orbitron', Helvetica, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase; }
+
 #container {
   position: absolute;
   top: 50%;
@@ -22,5 +35,26 @@ body {
 
 nav {
   display: none; }
+
+#wrapper {
+  width: 600px;
+  margin: 0 auto; }
+
+#typed {
+  text-align: center; }
+  #typed #header-img {
+    margin: 70px auto 40px auto; }
+    #typed #header-img img {
+      width: 600px; }
+  #typed a {
+    padding: 24px 40px 20px 40px;
+    background-color: #0dc1bc;
+    border-right: 4px solid #0c6f6d;
+    border-bottom: 4px solid #0c6f6d;
+    color: #fff;
+    margin: 40px auto;
+    display: inline-block; }
+  #typed a:hover {
+    background-color: #0c6f6d; }
 
 /*# sourceMappingURL=all.css.map */
