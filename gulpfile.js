@@ -8,6 +8,11 @@ var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
 var babelify = require('babelify');
 var webserver = require('gulp-webserver');
+var minimist = require('minimist');
+var path = require('path');
+var fs = require('fs');
+var mkdirp = require('mkdirp');
+var sass = require('gulp-sass');
 
 // add custom browserify options here
 var customOpts = {
@@ -35,6 +40,53 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('serve', ['js', 'webserver']);
+
+gulp.task('deploy', ['deploy-js', 'deploy-html', 'deploy-css', 'deploy-images']);
+
+gulp.task('deploy-js', function() {
+	var argv = require('minimist')(process.argv.slice(2));
+	if(!argv.o) {
+		console.error('You must specify and output directory for `gulp deploy`. Format: `gulp deploy -o outputdir`')
+	}
+	mkdirp(path.join(argv.o, 'scripts'));
+	browserify("./src/scripts/main.js", { debug: true })
+	.transform(babelify)
+	.bundle()
+	.on("error", function (err) { console.log("Error : " + err.message); })
+	.pipe(fs.createWriteStream(path.join(argv.o, 'scripts/all.js')));
+});
+
+gulp.task('deploy-html', function() {
+	var argv = require('minimist')(process.argv.slice(2));
+	if(!argv.o) {
+		console.error('You must specify and output directory for `gulp deploy`. Format: `gulp deploy -o outputdir`')
+	}
+	gulp
+	.src('./src/index.html')
+	.pipe(gulp.dest(argv.o));
+});
+
+gulp.task('deploy-css', function() {
+	var argv = require('minimist')(process.argv.slice(2));
+	if(!argv.o) {
+		console.error('You must specify and output directory for `gulp deploy`. Format: `gulp deploy -o outputdir`')
+	}
+	mkdirp(path.join(argv.o, 'styles'));
+	gulp.src('./src/styles/all.scss')
+	.pipe(sass().on('error', sass.logError))
+	.pipe(gulp.dest(path.join(argv.o,'styles')));
+});
+
+gulp.task('deploy-images', function() {
+	var argv = require('minimist')(process.argv.slice(2));
+	if(!argv.o) {
+		console.error('You must specify and output directory for `gulp deploy`. Format: `gulp deploy -o outputdir`')
+	}
+	mkdirp(path.join(argv.o, 'images'));
+	gulp
+	.src('./src/images/**/*')
+	.pipe(gulp.dest(path.join(argv.o, 'images')));
+});
 
 function bundle() {
 	return b.bundle()

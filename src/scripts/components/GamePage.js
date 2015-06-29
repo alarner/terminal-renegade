@@ -24,7 +24,8 @@ var levels = {
 module.exports = React.createClass({
 	getInitialState: function() {
 		return {
-			exitModalOpen: false
+			exitModalOpen: false,
+			infoModalOpen: false
 		};
 	},
 	componentWillMount: function() {
@@ -155,6 +156,9 @@ module.exports = React.createClass({
 			this.forceUpdate();
 		}
 	},
+	onInfoModalOpen: function(command) {
+
+	},
 	cancelModal: function(name) {
 		var self = this;
 		return function(e) {
@@ -239,6 +243,11 @@ module.exports = React.createClass({
 					<h1>Are you sure you want to exit this level?</h1>
 					<button type="button" onClick={this.cancelModal('exit')}>Cancel</button>
 					<button type="button" onClick={this.onConfirmExit}>Yes, Exit</button>
+				</Modal>
+				<Modal isOpen={this.state.infoModalOpen}>
+					<h1>{this.state.infoModalOpen.command}</h1>
+					<p>{this.state.infoModalOpen.description}</p>
+					<button type="button" onClick={this.cancelModal('info')}>Close</button>
 				</Modal>
 			</section>
 		);
