@@ -3,8 +3,47 @@
 }
 
 .ReactModal__Content {
-	background: #fff;
 	outline: none;
-	max-width: 600px;
+	max-width: 637px;
 	margin: 0 auto;
+	border-width: 13px;
+	border-color: #0DC1BC;
+	border-style: dotted;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #D9D6D2;
+
+	li, p {
+		font-size: 20px;
+		color: $off-light;
+		font-family: $paragraph-font;
+		margin-bottom: 14px;
+	}
+
+	.Inner_border {
+		border-width: 13px;
+		border-color: $primary-color;
+		border-style: dotted;
+		background: #000;
+	}
+
+	.content {
+		padding: 40px 40px 0 40px;
+		max-height: 437px;
+		overflow-x: scroll;
+	}
+
+	.buttons {
+		padding: 20px 40px 40px 40px;
+		max-height: 72px;
+		overflow-x: scroll;
+		line-height: 1em;
+	}
+
+	.btn {
+		font-size: 24px;
+		line-height: 1;
+	}
 }

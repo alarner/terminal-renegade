@@ -63,7 +63,7 @@ module.exports = {
 		name: '/',
 		created: true,
 		type: 'directory',
-		items: ['mkdir'],
+		items: ['cd'],
 		itemsVisible: true,
 		messages: [],
 		say: [
@@ -85,9 +85,14 @@ module.exports = {
 				name: 'engine_room',
 				created: true,
 				type: 'directory',
-				items: [],
+				items: ['open'],
 				itemsVisible: true,
-				messages: [],
+				messages: [
+					{
+						title: 'You found the `open` powerup!',
+						body: '`open` allows you to dig deeper into areas within the ship. Not all areas can be opened, but some can.'
+					}
+				],
 				children: [],
 				say: [
 					{
@@ -144,7 +149,7 @@ module.exports = {
 					},
 					{
 						name: 'sewage_pipes',
-						created: true,
+						created: false,
 						type: 'directory',
 						items: [],
 						itemsVisible: true,

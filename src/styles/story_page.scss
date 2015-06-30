@@ -1,51 +1,6 @@
-$primary-color: #0dc1bc;
-$primary-dark: #0c6f6d;
-
 body {
 	background: #070707 url('/images/story_page_bg.png') 0 0 repeat;
 }
-
-p {
-	font-size: 28px;
-	color: #fff;
-	font-weight: 400;
-	font-family: 'Metrophobic', Helvetica, sans-serif;
-}
-
-a {
-	font-size: 18px;
-	font-family: 'Orbitron', Helvetica, sans-serif;
-	font-weight: 700;
-	text-decoration: none;
-	text-transform: uppercase;
-}
-
-@mixin btn-primary {
-		padding: 24px 40px 20px 40px;
-		background-color: $primary-color;
-		border-right: 4px solid $primary-dark;
-		border-bottom: 4px solid $primary-dark;
-		color: #fff;
-}
-
-@mixin btn-primary-hover {
-	background-color: $primary-dark;
-}
-
-// #container {
-// 	position: absolute;
-// 	top: 50%;
-// 	left: 50%;
-// 	transform: translate(-50%, -50%);
-// 	width: 800px;
-// 	height: 605px;
-// 	background: #141414 url('/images/homepage_bg.png') 0 0 repeat;
-// 	border: 5px solid #565656;
-// }
-
-// nav {
-// 	display: none;
-// }
 
 .story-page {
 	width: 600px;

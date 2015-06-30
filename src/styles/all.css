@@ -1,15 +1,47 @@
 @charset "UTF-8";
+p {
+  font-size: 28px;
+  color: #fff;
+  font-weight: 400;
+  font-family: "Metrophobic", Helvetica, sans-serif; }
+
+a {
+  font-size: 18px;
+  font-family: "Orbitron", Helvetica, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase; }
+
 html, body, #container, main {
   margin: 0;
   height: 100%; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Orbitron';
-  font-weight: bold; }
+  font-family: "Orbitron";
+  font-weight: bold;
+  line-height: 1.4; }
 
 h4 {
   margin: 0.7em 0;
   font-size: 0.9em; }
+
+.btn {
+  padding: 24px 40px 20px 40px;
+  background-color: #0dc1bc;
+  border-top: 0;
+  border-left: 0;
+  border-right: 4px solid #0c6f6d;
+  border-bottom: 4px solid #0c6f6d;
+  color: #fff;
+  display: inline-block;
+  outline: none;
+  font-family: "Orbitron";
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em; }
+
+.btn:hover {
+  background-color: #0c6f6d; }
 
 canvas {
   display: block; }
@@ -75,26 +107,42 @@ main > div {
   background: rgba(0, 0, 0, 0.3); }
 
 .ReactModal__Content {
-  background: #fff;
   outline: none;
-  max-width: 600px;
-  margin: 0 auto; }
+  max-width: 637px;
+  margin: 0 auto;
+  border-width: 13px;
+  border-color: #0DC1BC;
+  border-style: dotted;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #D9D6D2; }
+  .ReactModal__Content li, .ReactModal__Content p {
+    font-size: 20px;
+    color: #D9D6D2;
+    font-family: "Metrophobic";
+    margin-bottom: 14px; }
+  .ReactModal__Content .Inner_border {
+    border-width: 13px;
+    border-color: #0dc1bc;
+    border-style: dotted;
+    background: #000; }
+  .ReactModal__Content .content {
+    padding: 40px 40px 0 40px;
+    max-height: 437px;
+    overflow-x: scroll; }
+  .ReactModal__Content .buttons {
+    padding: 20px 40px 40px 40px;
+    max-height: 72px;
+    overflow-x: scroll;
+    line-height: 1em; }
+  .ReactModal__Content .btn {
+    font-size: 24px;
+    line-height: 1; }
 
 body {
   background: #070707 url("/images/story_page_bg.png") 0 0 repeat; }
-
-p {
-  font-size: 28px;
-  color: #fff;
-  font-weight: 400;
-  font-family: 'Metrophobic', Helvetica, sans-serif; }
-
-a {
-  font-size: 18px;
-  font-family: 'Orbitron', Helvetica, sans-serif;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase; }
 
 .story-page {
   width: 600px;
@@ -107,9 +155,17 @@ a {
   .story-page a {
     padding: 24px 40px 20px 40px;
     background-color: #0dc1bc;
+    border-top: 0;
+    border-left: 0;
     border-right: 4px solid #0c6f6d;
     border-bottom: 4px solid #0c6f6d;
     color: #fff;
+    display: inline-block;
+    outline: none;
+    font-family: "Orbitron";
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     margin: 0 auto;
     display: inline-block; }
   .story-page a:hover {

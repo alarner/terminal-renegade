@@ -7,7 +7,6 @@ var Modal = require('./Modal');
 var GameState = require('../models/GameState');
 var CommandModel = require('../models/CommandModel');
 var CommandCollection = require('../collections/CommandCollection');
-var Modal = require('react-modal');
 var renderTools = require('../libs/render-tools');
 var Character = require('../libs/character');
 var powerups = require('../powerups');
@@ -26,21 +25,16 @@ module.exports = React.createClass({
 	getInitialState: function() {
 		return {
 			exitModalOpen: false,
-			infoModalOpen: false
+			powerupModalOpen: false,
+			messageModalOpen: false
 		};
 	},
 	componentWillMount: function() {
 		var self = this;
 		this.gameState = new GameState();
 		this.gameState.availableCommands = {
-			home: new CommandCollection([
-				{id: 'cd'},
-				{id: 'open'}
-			]),
-			play: new CommandCollection([
-				{id: 'cd'},
-				{id: 'exit'}
-			])
+			home: new CommandCollection(),
+			play: new CommandCollection()
 		};
 		this.renderer = new PIXI.WebGLRenderer(
 			globals.viewport.width,
@@ -56,8 +50,6 @@ module.exports = React.createClass({
 			home: null,
 			play: null 
 		};
-
-		Modal.setAppElement(document.body);
 
 		this.gameState.on('exit', this.onExitGame);
 		this.gameState.on('start', this.onStartLevel);
@@ -100,11 +92,18 @@ module.exports = React.createClass({
 
 		if(node.say.length) {
 			var say = node.say.shift();
+			if(!say) return;
 			var self = this;
 			// hacky
 			setTimeout(function() {
 				self.gameState.get('character').say(say.message, say.danger);
 			}, 100);
+		}
+
+		if(node.messages.length) {
+			var message = node.messages.shift();
+			if(!message) return;
+			this.setState({messageModalOpen: message});
 		}
 
 		if(node.items && node.items.length) {
@@ -159,8 +158,14 @@ module.exports = React.createClass({
 			this.forceUpdate();
 		}
 	},
-	onInfoModalOpen: function(command) {
-
+	onPowerupModalOpen: function(command) {
+		console.log('onPowerupModalOpen');
+		var self = this;
+		return function(e) {
+			e.preventDefault();
+			console.log('test');
+			self.setState({powerupModalOpen: powerups[command]});
+		};
 	},
 	cancelModal: function(name) {
 		var self = this;
@@ -185,6 +190,7 @@ module.exports = React.createClass({
 	},
 	render: function() {
 		var level = null;
+		var self = this;
 		if(this.gameState.get('stage') === 'play') {
 			level = (
 				<div className="level">
@@ -207,7 +213,7 @@ module.exports = React.createClass({
 					<div className="command">
 						{powerup.command}
 					</div>
-					<button type="button" className="info-btn"></button>
+					<button type="button" className="info-btn" onClick={self.onPowerupModalOpen(pu.id)}></button>
 				</div>
 			);
 		});
@@ -237,15 +243,23 @@ module.exports = React.createClass({
 					<button type="button" onClick={this.cancelModal('exit')}>Cancel</button>
 					<button type="button" onClick={this.onConfirmExit}>Yes, Exit</button>
 				</Modal>
-				<Modal isOpen={this.state.infoModalOpen}>
-					<h1>{this.state.infoModalOpen.command}</h1>
-					<p>{this.state.infoModalOpen.description}</p>
-					<button type="button" onClick={this.cancelModal('info')}>Close</button>
+				<Modal isOpen={this.state.powerupModalOpen}>
+					<div className="content">
+						<h1>{this.state.powerupModalOpen.command}</h1>
+						<p dangerouslySetInnerHTML={{__html: this.state.powerupModalOpen.description}}></p>
+					</div>
+					<div className="buttons">
+						<button type="button" onClick={this.cancelModal('powerup')} className="btn">Got it!</button>
+					</div>
 				</Modal>
-				<Modal isOpen={this.state.infoModalOpen}>
-					<h1>{this.state.infoModalOpen.command}</h1>
-					<p>{this.state.infoModalOpen.description}</p>
-					<button type="button" onClick={this.cancelModal('info')}>Close</button>
+				<Modal isOpen={this.state.messageModalOpen}>
+					<div className="content">
+						<h1 dangerouslySetInnerHTML={{__html: this.state.messageModalOpen.title}}></h1>
+						<p dangerouslySetInnerHTML={{__html: this.state.messageModalOpen.body}}></p>
+					</div>
+					<div className="buttons">
+						<button type="button" onClick={this.cancelModal('message')} className="btn">Cool!</button>
+					</div>
 				</Modal>
 			</section>
 		);

@@ -1,20 +1,72 @@
+$primary-color: #0dc1bc;
+$primary-dark: #0c6f6d;
+$off-light: #D9D6D2;
+$header-font: 'Orbitron';
+$paragraph-font: 'Metrophobic';
+
+@mixin btn-primary {
+	padding: 24px 40px 20px 40px;
+	background-color: $primary-color;
+	border-top: 0;
+	border-left: 0;
+	border-right: 4px solid $primary-dark;
+	border-bottom: 4px solid $primary-dark;
+	color: #fff;
+	display: inline-block;
+	outline: none;
+	font-family: $header-font;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+@mixin btn-primary-hover {
+	background-color: $primary-dark;
+}
+
+p {
+	font-size: 28px;
+	color: #fff;
+	font-weight: 400;
+	font-family: $paragraph-font, Helvetica, sans-serif;
+}
+
+a {
+	font-size: 18px;
+	font-family: $header-font, Helvetica, sans-serif;
+	font-weight: 700;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
 html, body, #container, main {
 	margin: 0;
 	height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Orbitron';
+	font-family: $header-font;
 	font-weight: bold;
+	line-height: 1.4;
 }
 
 h4 {
 	margin: 0.7em 0;
 	font-size: 0.9em;
 }
+
+.btn {
+	@include btn-primary;
+}
+
+.btn:hover {
+	@include btn-primary-hover;
+}
+
 canvas {
 	display: block;
 }
+
 main > div {
 	position: absolute;
 	top: 50%;
