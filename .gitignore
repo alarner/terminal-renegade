@@ -3,3 +3,4 @@ node_modules
 **/src/scripts/all.js.map
 **.DS_Store**
 **.sass-cache**
+npm-debug.log

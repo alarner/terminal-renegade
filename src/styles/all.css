@@ -96,41 +96,35 @@ a {
   text-decoration: none;
   text-transform: uppercase; }
 
-#container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 605px;
-  background: #141414 url("/images/homepage_bg.png") 0 0 repeat;
-  border: 5px solid #565656; }
-
-nav {
-  display: none; }
-
-#wrapper {
+.story-page {
   width: 600px;
-  margin: 0 auto; }
-
-#typed {
+  margin: 0 auto;
   text-align: center; }
-  #typed #header-img {
-    margin: 70px auto 40px auto; }
-    #typed #header-img img {
+  .story-page .header-img {
+    margin: 70px auto 0 auto; }
+    .story-page .header-img img {
       width: 600px; }
-  #typed a {
+  .story-page a {
     padding: 24px 40px 20px 40px;
     background-color: #0dc1bc;
     border-right: 4px solid #0c6f6d;
     border-bottom: 4px solid #0c6f6d;
     color: #fff;
-    margin: 40px auto;
+    margin: 0 auto;
     display: inline-block; }
-  #typed a:hover {
+  .story-page a:hover {
     background-color: #0c6f6d; }
-
-/*# sourceMappingURL=all.css.map */
+  .story-page .typed-mask {
+    overflow: hidden; }
+  .story-page .typed-scroll {
+    height: 154px;
+    text-align: left;
+    overflow-y: scroll;
+    margin: 1em -20px 1em 0; }
+  .story-page p {
+    margin: 0;
+    white-space: pre;
+    width: 600px; }
 
 .music-control {
   display: inline-block;
@@ -144,4 +138,3 @@ nav {
     content: ""; }
   .music-control.off::before {
     content: ""; }
-
