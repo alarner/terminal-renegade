@@ -1,7 +1,9 @@
 var React = require('react');
 var GamePage = require('./GamePage');
 var StoryPage = require('./StoryPage');
+var MusicControl = require('./MusicControl');
 var Backbone = require('backbone');
+var MusicModel = require('../models/MusicModel');
 Backbone.$ = require('jquery');
 
 module.exports = React.createClass({
@@ -22,7 +24,8 @@ module.exports = React.createClass({
 
 		return {
 			router: new Router({setState: self.setState}),
-			page: 'story'
+			page: 'story',
+			music: new MusicModel()
 		}
 	},
 	componentDidMount: function() {
@@ -37,11 +40,12 @@ module.exports = React.createClass({
 		};
 		return (
 			<main onClick={this.onAppClick}>
+				<MusicControl music={this.state.music} />
 				<div style={storyStyle}>
-					<StoryPage />
+					<StoryPage music={this.state.music} />
 				</div>
 				<div style={gameStyle}>
-					<GamePage ref="game" />
+					<GamePage ref="game" music={this.state.music} />
 				</div>
 			</main>
 		);

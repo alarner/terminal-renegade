@@ -11,6 +11,7 @@ module.exports = React.createClass({
 				loop: false,
 				loopCount: false
 		});
+		this.props.music.set({ url: '/music/story_and_home.mp3 '});
 	},
 	render: function() {
 		return (

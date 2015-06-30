@@ -16,5 +16,8 @@ module.exports = {
 	chat: {
 		padding: 15
 	},
-	characterName: 'Rae'
+	characterName: 'Rae',
+	music: {
+		fadeTime: 500
+	}
 }
