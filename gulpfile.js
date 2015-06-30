@@ -94,7 +94,7 @@ gulp.task('deploy-images', function() {
 	}
 	mkdirp(path.join(argv.o, 'images'));
 	gulp
-	.src('./src/images/**/*')
+	.src('./src/images/**/*.{png,jpg,gif,jpeg}')
 	.pipe(gulp.dest(path.join(argv.o, 'images')));
 });
 

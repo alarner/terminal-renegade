@@ -1,5 +1,6 @@
 var React = require('react');
 var PIXI = require('pixi.js');
+var _ = require('lodash');
 var globals = require('../globals');
 var CommandBox = require('./CommandBox');
 var Modal = require('./Modal');
@@ -92,6 +93,7 @@ module.exports = React.createClass({
 		this.forceUpdate();
 	},
 	onNodeChanged: function() {
+		var self = this;
 		var node = this.gameState.get('currentNode');
 
 		if(!node) return;
@@ -103,6 +105,13 @@ module.exports = React.createClass({
 			setTimeout(function() {
 				self.gameState.get('character').say(say.message, say.danger);
 			}, 100);
+		}
+
+		if(node.items && node.items.length) {
+			_.each(node.items, function(item) {
+				self.gameState.availableCommands[self.gameState.get('stage')].add({id: item});
+			});
+			node.items = [];
 		}
 
 		if(node === homeLevel.root.children[0]) {
@@ -227,6 +236,11 @@ module.exports = React.createClass({
 					<h1>Are you sure you want to exit this level?</h1>
 					<button type="button" onClick={this.cancelModal('exit')}>Cancel</button>
 					<button type="button" onClick={this.onConfirmExit}>Yes, Exit</button>
+				</Modal>
+				<Modal isOpen={this.state.infoModalOpen}>
+					<h1>{this.state.infoModalOpen.command}</h1>
+					<p>{this.state.infoModalOpen.description}</p>
+					<button type="button" onClick={this.cancelModal('info')}>Close</button>
 				</Modal>
 				<Modal isOpen={this.state.infoModalOpen}>
 					<h1>{this.state.infoModalOpen.command}</h1>
