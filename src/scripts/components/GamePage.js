@@ -146,6 +146,7 @@ module.exports = React.createClass({
 				itemsCollected: 0,
 				currentNode: newLevel.root
 			});
+			this.props.music.set({url: newLevel.music});
 			this.forceUpdate();
 		}
 	},
@@ -164,7 +165,7 @@ module.exports = React.createClass({
 		if(this.backgrounds.home) {
 			this.stages.home.removeChild(this.backgrounds.home);
 		}
-
+		this.props.music.set({url: homeLevel.music});
 		this.gameState.set({
 			stage: 'home',
 			level: homeLevel,
@@ -250,6 +251,9 @@ module.exports = React.createClass({
 	},
 	componentDidUpdate: function() {
 		this.refs.commandBox.getDOMNode().focus();
+		if(this.props.page === 'game') {
+			this.props.music.set({ url: this.gameState.get('level').music });
+		}
 	},
 	animate: function() {
 		// start the timer for the next animation loop

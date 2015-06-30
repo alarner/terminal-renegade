@@ -9,12 +9,14 @@ Backbone.$ = require('jquery');
 module.exports = React.createClass({
 	getInitialState: function() {
 		var self = this;
+		var music = new MusicModel();
 		var Router = Backbone.Router.extend({
 			routes: {
 				'': 'story',
 				'game': 'game'
 			},
 			story: function() {
+				music.set({ url: '/music/story_and_home.mp3 '});
 				self.setState({page: 'story'});
 			},
 			game: function() {
@@ -25,7 +27,7 @@ module.exports = React.createClass({
 		return {
 			router: new Router({setState: self.setState}),
 			page: 'story',
-			music: new MusicModel()
+			music: music
 		}
 	},
 	componentDidMount: function() {
@@ -42,10 +44,10 @@ module.exports = React.createClass({
 			<main onClick={this.onAppClick}>
 				<MusicControl music={this.state.music} />
 				<div style={storyStyle}>
-					<StoryPage music={this.state.music} />
+					<StoryPage page={this.state.page} music={this.state.music} />
 				</div>
-				<div style={gameStyle}>
-					<GamePage ref="game" music={this.state.music} />
+				<div style={gameStyle} ref="game">
+					<GamePage page={this.state.page} music={this.state.music} />
 				</div>
 			</main>
 		);

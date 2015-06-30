@@ -42,21 +42,27 @@ module.exports = React.createClass({
 			music.fadeIn(globals.music.fadeTime);
 		}
 		else {
-			music.fadeOut(globals.music.fadeTime);
+			music.fadeOut(globals.music.fadeTime, function() {
+				music.pause();
+			});
 		}
 	},
 	onMusicUrlChange: function() {
 		var newUrl = this.props.music.get('url');
-		if(!newUrl) return;
-		if(!this.props.music.get('on')) return;
-
 		var oldUrl = this.props.music.previous('url');
 		var newMusic = this.getMusic(newUrl);
 		var oldMusic = this.getMusic(oldUrl);
+		if(!newMusic && oldMusic) {
+			oldMusic.fadeOut(globals.music.fadeTime);
+		}
+		if(!newMusic) return;
+		if(!this.props.music.get('on')) return;
 
 		newMusic.fadeIn(globals.music.fadeTime);
 		if(oldMusic) {
-			oldMusic.fadeOut(globals.music.fadeTime);
+			oldMusic.fadeOut(globals.music.fadeTime, function() {
+				oldMusic.pause();
+			});
 		}
 	}
 });
