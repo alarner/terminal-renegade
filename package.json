@@ -23,7 +23,6 @@
     "classnames": "^1.2.2",
     "font-awesome": "^4.3.0",
     "gsap": "^1.17.0",
-    "howler": "^1.1.26",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "pixi.js": "^3.0.6",
