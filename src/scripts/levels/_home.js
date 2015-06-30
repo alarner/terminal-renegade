@@ -74,6 +74,10 @@ module.exports = {
 			{
 				message: 'I can also quickly skip rooms in the ship. Try typing `cd nuclear_reactor/pilot_deck`.',
 				danger: false
+			},
+			{
+				message: 'Woohoo! Let\'s try something a bit more difficult. That pilot deck looked interesting. I want to visit it. Type `open nuclear_reactor/pilot_deck` to check it out.',
+				danger: false
 			}
 		],
 		children: [
