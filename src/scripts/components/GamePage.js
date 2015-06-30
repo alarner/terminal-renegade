@@ -83,14 +83,12 @@ module.exports = React.createClass({
 		this.goHome();
 	},
 	onGameStateChanged: function() {
-		console.log('onGameStateChanged');
 		renderTools.draw(
 			this.stages[this.gameState.get('stage')],
 			this.gameState
 		);
 	},
 	onNewCommand: function() {
-		console.log('onNewCommand');
 		this.forceUpdate();
 	},
 	onNodeChanged: function() {

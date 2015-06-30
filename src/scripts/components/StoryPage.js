@@ -1,5 +1,7 @@
 var React = require('react');
-// var $ = require('jquery');
+var $ = require('jquery');
+window.jQuery = $;
+require('typed.js');
 
 module.exports = React.createClass({
 	componentDidMount: function() {

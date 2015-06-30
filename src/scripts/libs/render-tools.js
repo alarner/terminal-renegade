@@ -78,7 +78,6 @@ module.exports = {
 		return height;
 	},
 	draw: function(stage, gameState) {
-		console.log('draw');
 		stage.removeChildren();
 		var level = gameState.get('level');
 		var currentNode = gameState.get('currentNode');
