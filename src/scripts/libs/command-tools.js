@@ -14,13 +14,12 @@ module.exports = {
 		else if(p.substring(0, 2) == '~/') {
 			p = home + p.substring(1);
 		}
-		else if(p.length === 1 && p.charAt(0) === '.') {
-			p = null;
-		}
+		// else if(p.length === 1 && p.charAt(0) === '.') {
+		// 	p = null;
+		// }
 		else if(p.substring(0, 2) == './') {
 			p = p.substring(2);
 		}
-		console.log('normalizePath', p);
 		return p;
 	},
 	getNodeFromPath: function(path, gameState) {

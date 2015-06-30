@@ -9,6 +9,7 @@ var CommandCollection = require('../collections/CommandCollection');
 var Modal = require('react-modal');
 var renderTools = require('../libs/render-tools');
 var Character = require('../libs/character');
+var powerups = require('../powerups');
 
 var homeLevel = renderTools.loadFreshLevel(require('../levels/_home'));
 
@@ -23,19 +24,23 @@ var levels = {
 module.exports = React.createClass({
 	getInitialState: function() {
 		return {
-			exitModalOpen: false
+			exitModalOpen: false,
+			infoModalOpen: false
 		};
 	},
 	componentWillMount: function() {
 		var self = this;
 		this.gameState = new GameState();
-		this.gameState.availableCommands = new CommandCollection();
-		this.gameState.availableCommands.add([
-			{id: 'cd'},
-			{id: 'exit'},
-			{id: 'mkdir'},
-			{id: 'open'}
-		]);
+		this.gameState.availableCommands = {
+			home: new CommandCollection([
+				{id: 'cd'},
+				{id: 'open'}
+			]),
+			play: new CommandCollection([
+				{id: 'cd'},
+				{id: 'exit'}
+			])
+		};
 		this.renderer = new PIXI.WebGLRenderer(
 			globals.viewport.width,
 			globals.viewport.height
@@ -57,6 +62,8 @@ module.exports = React.createClass({
 		this.gameState.on('start', this.onStartLevel);
 		this.gameState.on('change', this.onGameStateChanged);
 		this.gameState.on('change:currentNode', this.onNodeChanged);
+		this.gameState.availableCommands.home.on('add', this.onNewCommand);
+		this.gameState.availableCommands.play.on('add', this.onNewCommand);
 	},
 	onCommand: function(output, command) {
 		if(output) {
@@ -81,6 +88,9 @@ module.exports = React.createClass({
 			this.gameState
 		);
 	},
+	onNewCommand: function() {
+		this.forceUpdate();
+	},
 	onNodeChanged: function() {
 		var node = this.gameState.get('currentNode');
 
@@ -92,7 +102,7 @@ module.exports = React.createClass({
 			// hacky
 			setTimeout(function() {
 				self.gameState.get('character').say(say.message, say.danger);
-			}, 1);
+			}, 100);
 		}
 
 		if(node === homeLevel.root.children[0]) {
@@ -125,22 +135,10 @@ module.exports = React.createClass({
 			}, 20);
 		}
 		else {
-			console.log(3);
 			var newLevel = renderTools.loadFreshLevel(levels[e.node.levelName]);
 			if(this.backgrounds.play) {
 				this.stages.play.removeChild(this.backgrounds.play);
 				this.backgrounds.play = null;
-			}
-			if(newLevel.backgroundImage) {
-				var texture = PIXI.Texture.fromImage(newLevel.backgroundImage);
-				this.backgrounds.play = new PIXI.extras.TilingSprite(
-					texture,
-					renderTools.getNodeWidth(newLevel.root, true) + globals.viewport.width,
-					renderTools.getNodeHeight(newLevel.root, true) + globals.viewport.height
-				);
-				this.backgrounds.play.position.x = globals.viewport.width/-2;
-				this.backgrounds.play.position.y = globals.viewport.height/-2;
-				this.stages.play.addChild(this.backgrounds.play);
 			}
 			this.gameState.set({
 				stage: 'play',
@@ -148,7 +146,12 @@ module.exports = React.createClass({
 				itemsCollected: 0,
 				currentNode: newLevel.root
 			});
+			this.props.music.set({url: newLevel.music});
+			this.forceUpdate();
 		}
+	},
+	onInfoModalOpen: function(command) {
+
 	},
 	cancelModal: function(name) {
 		var self = this;
@@ -162,43 +165,73 @@ module.exports = React.createClass({
 		if(this.backgrounds.home) {
 			this.stages.home.removeChild(this.backgrounds.home);
 		}
-		var texture = PIXI.Texture.fromImage("../images/homepage_bg.png");
-		this.backgrounds.home = new PIXI.extras.TilingSprite(
-			texture,
-			renderTools.getNodeWidth(homeLevel.root, true) + globals.viewport.width,
-			renderTools.getNodeHeight(homeLevel.root, true) + globals.viewport.height
-		);
-		this.backgrounds.home.position.x = globals.viewport.width/-2;
-		this.backgrounds.home.position.y = globals.viewport.height/-2;
-		this.stages.home.addChild(this.backgrounds.home);
-
+		this.props.music.set({url: homeLevel.music});
 		this.gameState.set({
 			stage: 'home',
 			level: homeLevel,
 			itemsCollected: 0,
 			currentNode: homeLevel.root
 		});
+		this.forceUpdate();
 	},
 	render: function() {
+		var level = null;
+		if(this.gameState.get('stage') === 'play') {
+			level = (
+				<div className="level">
+					<h4>Level {this.gameState.get('level').number}</h4>
+					<h4 className="level-name">{this.gameState.get('level').name}</h4>
+				</div>
+			);
+		}
+
+		var powerupElements = this.gameState.availableCommands[this.gameState.get('stage')].map(function(pu) {
+			if(!powerups.hasOwnProperty(pu.id)) {
+				return <div>bad powerup {pu.id}</div>
+			}
+			var powerup = powerups[pu.id];
+			return (
+				<div key={pu.id} className="pu">
+					<div className="icon">
+						<img src={powerup.icon || ''} />
+					</div>
+					<div className="command">
+						{powerup.command}
+					</div>
+					<button type="button" className="info-btn"></button>
+				</div>
+			);
+		});
 		return (
-			<section ref="game">
-				<div className="top">
-					<nav>
-						nav
-					</nav>
+			<section ref="game" className="play">
+				<nav>
+					<div className="headshot-level">
+						<img src="/images/active_character.png" className="headshot" />
+						{level}
+					</div>
+					<div className="powerups">
+						<h4>Available Powerups</h4>
+						{powerupElements}
+					</div>
+				</nav>
+				<div className="right">
 					<div ref="stage">
 					</div>
-				</div>
-				<div className="bottom">
 					<CommandBox
 						callback={this.onCommand}
 						gameState={this.gameState}
+						availableCommands={this.gameState.availableCommands[this.gameState.get('stage')]}
 						ref="commandBox" />
 				</div>
 				<Modal isOpen={this.state.exitModalOpen}>
 					<h1>Are you sure you want to exit this level?</h1>
 					<button type="button" onClick={this.cancelModal('exit')}>Cancel</button>
 					<button type="button" onClick={this.onConfirmExit}>Yes, Exit</button>
+				</Modal>
+				<Modal isOpen={this.state.infoModalOpen}>
+					<h1>{this.state.infoModalOpen.command}</h1>
+					<p>{this.state.infoModalOpen.description}</p>
+					<button type="button" onClick={this.cancelModal('info')}>Close</button>
 				</Modal>
 			</section>
 		);
@@ -214,13 +247,13 @@ module.exports = React.createClass({
 			character: character
 		});
 		this.goHome();
-
-		var self = this;
-		setTimeout(function() {
-			self.refs.commandBox.getDOMNode().focus();
-		}, 20)
-
 		this.animate();
+	},
+	componentDidUpdate: function() {
+		this.refs.commandBox.getDOMNode().focus();
+		if(this.props.page === 'game') {
+			this.props.music.set({ url: this.gameState.get('level').music });
+		}
 	},
 	animate: function() {
 		// start the timer for the next animation loop

@@ -1,0 +1,68 @@
+.play {
+	width: 1000px;
+	height: 600px;
+	nav {
+		float: left;
+		width: 200px;
+		height: 100%;
+		background: #131313;
+		border-right: 5px solid #000;
+		box-sizing: border-box;
+		padding: 20px;
+		color: #D9D6D2;
+
+		.headshot-level {
+			overflow: hidden;
+			margin-bottom: 3em;
+		}
+
+		.headshot {
+			width: 50px;
+			height: 50px;
+			display: block;
+			float: left;
+			margin-right: 8px;
+		}
+
+		.level {
+			float: left;
+
+			h4 {
+				margin: 0.7em 0 0.4em 0;
+			}
+
+			.level-name {
+				margin-top: 0.4em;
+			}
+		}
+	}
+
+	.right {
+		float: left;
+		width: 800px;
+	}
+
+	.powerups {
+		.pu {
+			overflow: hidden;
+			margin-bottom: 14px;
+
+			.icon, .command {
+				margin-right: 8px;
+				width: 36px;
+				height: 36px;
+				line-height: 36px;
+				float: left;
+			}
+
+			.info-btn {
+				float: right;
+				width: 20px;
+				height: 20px;
+				margin: 8px;
+				border: 0;
+				padding: 0;
+			}
+		}
+	}
+}

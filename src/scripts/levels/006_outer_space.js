@@ -1,6 +1,9 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
+	number: 5,
+	name: 'Outer Space',
+	music: '/music/level5.mp3',
 	display: function() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);

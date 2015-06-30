@@ -9,6 +9,13 @@ module.exports = {
 	run: function(args, gameState) {
 		var currentNode = this.getNewNode(args, gameState);
 
+		if(currentNode.items && currentNode.items.length) {
+			_.each(currentNode.items, function(item) {
+				gameState.availableCommands[gameState.get('stage')].add({id: item});
+			});
+			currentNode.items = [];
+		}
+
 		gameState.set({
 			currentNode: currentNode
 		});
@@ -16,6 +23,7 @@ module.exports = {
 	},
 	getNewNode: function(args, gameState) {
 		var path = this.getPath(args, gameState);
+		console.log('getNewNode', path);
 		var originalPath = path;
 		if(path === null) return false;
 
@@ -36,6 +44,9 @@ module.exports = {
 				if(currentNode._parent) {
 					currentNode = currentNode._parent;
 				}
+			}
+			else if(pieces[i] === '.') {
+				continue;
 			}
 			else {
 				var node = _.find(currentNode.children, function(child) {

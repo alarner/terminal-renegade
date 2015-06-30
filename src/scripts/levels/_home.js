@@ -1,6 +1,8 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
+	backgroundImage: '/images/homepage_bg.png',
+	music: '/music/story_and_home.mp3',
 	display: function() {
 		var container = new PIXI.Container();
 		var texture;
@@ -61,7 +63,7 @@ module.exports = {
 		name: '/',
 		created: true,
 		type: 'directory',
-		items: [],
+		items: ['mkdir'],
 		itemsVisible: true,
 		messages: [],
 		say: [
@@ -138,7 +140,7 @@ module.exports = {
 					},
 					{
 						name: 'sewage_pipes',
-						created: false,
+						created: true,
 						type: 'directory',
 						items: [],
 						itemsVisible: true,

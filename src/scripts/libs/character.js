@@ -19,7 +19,6 @@ module.exports = function() {
 	this.container.addChild(this.character);
 
 	this.say = function(message, error) {
-		console.log(message);
 		if(chat) {
 			this.container.removeChild(chat);
 		}

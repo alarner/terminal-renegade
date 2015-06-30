@@ -1,6 +1,9 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
+	number: 1,
+	name: 'Sewage Pipes',
+	music: '/music/level2.mp3',
 	display: function() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);

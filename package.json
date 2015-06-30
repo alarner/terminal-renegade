@@ -15,36 +15,33 @@
   "bugs": {
     "url": "https://github.com/alarner/clash/issues"
   },
-  "browser": {
-    "jquery": "./node_modules/jquery/dist/jquery.min.js",
-    "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.min.js"
-  },
-  "browserify-shim": {
-    "jquery": "global:$"
-  },
   "homepage": "https://github.com/alarner/clash#readme",
   "dependencies": {
     "backbone": "^1.2.1",
     "bootstrap": "^3.3.5",
+    "buzz": "jaysalvat/buzz",
     "classnames": "^1.2.2",
-    "gsap": "greensock/GreenSock-JS",
+    "font-awesome": "^4.3.0",
+    "gsap": "^1.17.0",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
-    "ngraph.generators": "0.0.15",
-    "ngraph.pixi": "0.0.2",
     "pixi.js": "^3.0.6",
     "react": "^0.13.3",
-    "react-modal": "^0.2.0"
+    "react-modal": "^0.2.0",
+    "typed.js": "mattboldt/typed.js"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
     "browserify": "^10.2.4",
+    "browserify-shim": "^3.8.9",
     "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.3",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.6",
     "gulp-webserver": "^0.9.1",
     "lodash.assign": "^3.2.0",
     "minimist": "^1.1.1",
+    "mkdirp": "^0.5.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.3"

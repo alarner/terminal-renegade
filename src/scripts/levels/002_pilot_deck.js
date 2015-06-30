@@ -1,6 +1,9 @@
 var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
+	number: 1,
+	name: 'Pilot Deck',
+	music: '/music/level1.mp3',
 	display: function() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);
@@ -10,12 +13,14 @@ module.exports = {
 		graphics.drawRect(0, 0, globals.node.size.width-5, globals.node.size.height-5);
 		return graphics;
 	},
-	root:{
+	root: {
 		name: '/',
 		items: [],
 		children: [], // nodes go here
 		itemsVisible: true,
-		messages: []
+		messages: [],
+		children: [
+		]
 	}
 }
 

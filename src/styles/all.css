@@ -1,3 +1,76 @@
+@charset "UTF-8";
+html, body, #container, main {
+  margin: 0;
+  height: 100%; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron';
+  font-weight: bold; }
+
+h4 {
+  margin: 0.7em 0;
+  font-size: 0.9em; }
+
+canvas {
+  display: block; }
+
+main > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 600px;
+  background: #141414 url("/images/homepage_bg.png") 0 0 repeat;
+  border: 5px solid #565656; }
+
+.play {
+  width: 1000px;
+  height: 600px; }
+  .play nav {
+    float: left;
+    width: 200px;
+    height: 100%;
+    background: #131313;
+    border-right: 5px solid #000;
+    box-sizing: border-box;
+    padding: 20px;
+    color: #D9D6D2; }
+    .play nav .headshot-level {
+      overflow: hidden;
+      margin-bottom: 3em; }
+    .play nav .headshot {
+      width: 50px;
+      height: 50px;
+      display: block;
+      float: left;
+      margin-right: 8px; }
+    .play nav .level {
+      float: left; }
+      .play nav .level h4 {
+        margin: 0.7em 0 0.4em 0; }
+      .play nav .level .level-name {
+        margin-top: 0.4em; }
+  .play .right {
+    float: left;
+    width: 800px; }
+  .play .powerups .pu {
+    overflow: hidden;
+    margin-bottom: 14px; }
+    .play .powerups .pu .icon, .play .powerups .pu .command {
+      margin-right: 8px;
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      float: left; }
+    .play .powerups .pu .info-btn {
+      float: right;
+      width: 20px;
+      height: 20px;
+      margin: 8px;
+      border: 0;
+      padding: 0; }
+
 .ReactModal__Overlay {
   background: rgba(0, 0, 0, 0.3); }
 
@@ -58,3 +131,17 @@ nav {
     background-color: #0c6f6d; }
 
 /*# sourceMappingURL=all.css.map */
+
+.music-control {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0); }
+  .music-control.on::before {
+    content: ""; }
+  .music-control.off::before {
+    content: ""; }
+

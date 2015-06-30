@@ -2,12 +2,13 @@ var React = require('react');
 var _ = require('lodash');
 var minimist = require('minimist');
 var clTools = require('../libs/command-tools');
-var commands = {
-	cd: require('../commands/cd'),
-	exit: require('../commands/exit'),
-	mkdir: require('../commands/mkdir'),
-	open: require('../commands/open')
-};
+var powerups = require('../powerups');
+// var commands = {
+// 	cd: require('../commands/cd'),
+// 	exit: require('../commands/exit'),
+// 	mkdir: require('../commands/mkdir'),
+// 	open: require('../commands/open')
+// };
 
 var KEY = {
 	ENTER: 13,
@@ -61,12 +62,12 @@ module.exports = React.createClass({
 
 			var c = argv._[0].toLowerCase();
 
-			if(!this.props.gameState.availableCommands.get(c) || !commands.hasOwnProperty(c)) {
+			if(!this.props.availableCommands.get(c) || !powerups.hasOwnProperty(c)) {
 				return;
 			}
 				
 			try {
-				path = commands[c].getPath(argv, this.props.gameState);
+				path = powerups[c].actions.getPath(argv, this.props.gameState);
 				if(!path) return;
 			}
 			catch(e) {
@@ -105,7 +106,7 @@ module.exports = React.createClass({
 				}
 			}
 			catch(e) {
-				console.log(e);
+				// console.log(e);
 			}
 		}
 		else if(e.which === KEY.UP) {
@@ -140,15 +141,15 @@ module.exports = React.createClass({
 		this.history.unshift(command);
 
 		var c = argv._[0].toLowerCase();
-		if(!this.props.gameState.availableCommands.get(c)) {
+		if(!this.props.availableCommands.get(c)) {
 			return 'You don\'t have a command called `'+c+'`';
 		}
-		if(!commands.hasOwnProperty(c)) {
+		if(!powerups.hasOwnProperty(c)) {
 			return 'Command not found: `'+c+'`';
 		}
 
 		try {
-			return commands[c].run(argv, this.props.gameState);
+			return powerups[c].actions.run(argv, this.props.gameState);
 		}
 		catch(e) {
 			return e;
