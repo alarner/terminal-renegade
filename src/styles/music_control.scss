@@ -1,0 +1,16 @@
+@import '../../node_modules/font-awesome/scss/_variables';
+@import '../../node_modules/font-awesome/scss/_mixins';
+
+.music-control {
+	@include fa-icon();
+	&.on {
+		&::before {
+			content: $fa-var-volume-up;
+		}
+	}
+	&.off {
+		&::before {
+			content: $fa-var-volume-off;
+		}
+	}
+}

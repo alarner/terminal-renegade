@@ -20,6 +20,7 @@
     "backbone": "^1.2.1",
     "bootstrap": "^3.3.5",
     "classnames": "^1.2.2",
+    "font-awesome": "^4.3.0",
     "gsap": "^1.17.0",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",

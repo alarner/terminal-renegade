@@ -39,7 +39,17 @@ gulp.task('webserver', function() {
 	}));
 });
 
-gulp.task('serve', ['js', 'webserver']);
+gulp.task('serve', ['js', 'serve-css', 'webserver'], function() {
+	gulp.watch('src/styles/**/*.scss',['serve-css']);
+});
+
+gulp.task('serve-css', function() {
+	gulp.src('src/styles/all.scss')
+	.pipe(sass({
+		errLogToConsole: true
+	}))
+	.pipe(gulp.dest('./src/styles'));
+});
 
 gulp.task('deploy', ['deploy-js', 'deploy-html', 'deploy-css', 'deploy-images']);
 

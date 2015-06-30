@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html, body, #container, main {
   margin: 0;
   height: 100%; }
@@ -82,4 +83,15 @@ main > div {
 body {
   background: #070707 url("/images/story_page_bg.png") 0 0 repeat; }
 
-/*# sourceMappingURL=all.css.map */
+.music-control {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0); }
+  .music-control.on::before {
+    content: ""; }
+  .music-control.off::before {
+    content: ""; }
