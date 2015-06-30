@@ -58,6 +58,7 @@ module.exports = React.createClass({
 		if(!newMusic) return;
 		if(!this.props.music.get('on')) return;
 
+		console.log('musicUrlChanged', newUrl);
 		newMusic.fadeIn(globals.music.fadeTime);
 		if(oldMusic) {
 			oldMusic.fadeOut(globals.music.fadeTime, function() {

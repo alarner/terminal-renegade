@@ -16,7 +16,7 @@ module.exports = React.createClass({
 				'game': 'game'
 			},
 			story: function() {
-				music.set({ url: '/music/story_and_home.mp3 '});
+				music.set({ url: '/music/story_and_home.mp3'});
 				self.setState({page: 'story'});
 			},
 			game: function() {
@@ -46,8 +46,8 @@ module.exports = React.createClass({
 				<div style={storyStyle}>
 					<StoryPage page={this.state.page} music={this.state.music} />
 				</div>
-				<div style={gameStyle} ref="game">
-					<GamePage page={this.state.page} music={this.state.music} />
+				<div style={gameStyle}>
+					<GamePage ref="game" page={this.state.page} music={this.state.music} />
 				</div>
 			</main>
 		);

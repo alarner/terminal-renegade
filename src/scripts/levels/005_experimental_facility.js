@@ -3,6 +3,7 @@ var globals = require('../globals');
 module.exports = {
 	number: 4,
 	name: 'Laboratory',
+	music: '/music/level4.mp3',
 	display: function() {
 		var graphics = new PIXI.Graphics();
 		graphics.beginFill(0xFFFF00);

@@ -2,7 +2,7 @@ var PIXI = require('pixi.js');
 var globals = require('../globals');
 module.exports = {
 	backgroundImage: '/images/homepage_bg.png',
-	music: '/music/level1.mp3',
+	music: '/music/story_and_home.mp3',
 	display: function() {
 		var container = new PIXI.Container();
 		var texture;
