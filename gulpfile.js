@@ -51,7 +51,7 @@ gulp.task('serve-css', function() {
 	.pipe(gulp.dest('./src/styles'));
 });
 
-gulp.task('deploy', ['deploy-js', 'deploy-html', 'deploy-css', 'deploy-images']);
+gulp.task('deploy', ['deploy-js', 'deploy-html', 'deploy-css', 'deploy-images', 'deploy-music']);
 
 gulp.task('deploy-js', function() {
 	var argv = require('minimist')(process.argv.slice(2));
@@ -96,6 +96,17 @@ gulp.task('deploy-images', function() {
 	gulp
 	.src('./src/images/**/*')
 	.pipe(gulp.dest(path.join(argv.o, 'images')));
+});
+
+gulp.task('deploy-music', function() {
+	var argv = require('minimist')(process.argv.slice(2));
+	if(!argv.o) {
+		console.error('You must specify and output directory for `gulp deploy`. Format: `gulp deploy -o outputdir`')
+	}
+	mkdirp(path.join(argv.o, 'music'));
+	gulp
+	.src('./src/music/**/*')
+	.pipe(gulp.dest(path.join(argv.o, 'music')));
 });
 
 function bundle() {

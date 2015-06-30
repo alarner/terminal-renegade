@@ -15,7 +15,7 @@ Light years away, in the deepest depths of the\n\
 galaxy, Rae, a renegade of the planet Terminal\n\
 fights with her band of galaxy guerrillas to\n\
 overthrow planet Terminal’s tyrant, Commander\n\
-Sudo!!^2000\n\
+Sudo!! (pronounced sudo bang bang!)^2000\n\
 \n\
 A stealth mission to infiltrate the depths of\n\
 Commander Sudo !!’s headquarters, lead to\n\
