@@ -24,9 +24,11 @@ var levels = {
 module.exports = React.createClass({
 	getInitialState: function() {
 		return {
-			exitModalOpen: false,
-			powerupModalOpen: false,
-			messageModalOpen: false
+			modals: {
+				exit: false,
+				powerup: false,
+				message: false
+			}
 		};
 	},
 	componentWillMount: function() {
@@ -55,6 +57,7 @@ module.exports = React.createClass({
 		this.gameState.on('start', this.onStartLevel);
 		this.gameState.on('change', this.onGameStateChanged);
 		this.gameState.on('change:currentNode', this.onNodeChanged);
+		this.gameState.on('closeModals', this.onCloseModals);
 		this.gameState.availableCommands.home.on('add', this.onNewCommand);
 		this.gameState.availableCommands.play.on('add', this.onNewCommand);
 	},
@@ -68,11 +71,11 @@ module.exports = React.createClass({
 	},
 	onExitGame: function() {
 		if(this.gameState.get('stage') !== 'home') {
-			this.setState({exitModalOpen: true});
+			this.setState({modals: {exit: true}});
 		}
 	},
 	onConfirmExit: function() {
-		this.setState({exitModalOpen: false});
+		this.setState({modals: {exit: false}});
 		this.goHome();
 	},
 	onGameStateChanged: function() {
@@ -103,7 +106,7 @@ module.exports = React.createClass({
 		if(node.messages.length) {
 			var message = node.messages.shift();
 			if(!message) return;
-			this.setState({messageModalOpen: message});
+			this.setState({modals: {message: message}});
 		}
 
 		if(node.items && node.items.length) {
@@ -164,14 +167,17 @@ module.exports = React.createClass({
 		return function(e) {
 			e.preventDefault();
 			console.log('test');
-			self.setState({powerupModalOpen: powerups[command]});
+			self.setState({modals: {powerup: powerups[command]}});
 		};
+	},
+	onCloseModals: function() {
+		this.setState({modals: this.getInitialState().modals});
 	},
 	cancelModal: function(name) {
 		var self = this;
 		return function(e) {
-			var newState = {};
-			newState[name+'ModalOpen'] = false;
+			var newState = { modals: {} };
+			newState.modals[name] = false;
 			self.setState(newState);
 		}
 	},
@@ -217,6 +223,47 @@ module.exports = React.createClass({
 				</div>
 			);
 		});
+		var modal = null;
+		if(this.state.modals.exit) {
+			modal = (
+				<Modal isOpen={this.state.modals.exit} gameState={this.gameState}>
+					<div className="content">
+						<h1>Are you sure you want to exit this level?</h1>
+						<p>Renegade Rae needs your help! Are you sure you want to quit and leave her to fend for herself?</p>
+					</div>
+					<div className="buttons">
+						<button type="button" className="btn" onClick={this.cancelModal('exit')}>Cancel</button>
+						<button type="button" className="btn danger" onClick={this.onConfirmExit}>Quit</button>					
+					</div>
+				</Modal>
+			);
+		}
+		else if(this.state.modals.powerup) {
+			modal = (
+				<Modal isOpen={this.state.modals.powerup} gameState={this.gameState}>
+					<div className="content">
+						<h1>{this.state.modals.powerup.command}</h1>
+						<p dangerouslySetInnerHTML={{__html: this.state.modals.powerup.description}}></p>
+					</div>
+					<div className="buttons">
+						<button type="button" onClick={this.cancelModal('powerup')} className="btn">Got it!</button>
+					</div>
+				</Modal>
+			);
+		}
+		else if(this.state.modals.message) {
+			modal = (
+				<Modal isOpen={this.state.modals.message} gameState={this.gameState}>
+					<div className="content">
+						<h1 dangerouslySetInnerHTML={{__html: this.state.modals.message.title}}></h1>
+						<p dangerouslySetInnerHTML={{__html: this.state.modals.message.body}}></p>
+					</div>
+					<div className="buttons">
+						<button type="button" onClick={this.cancelModal('message')} className="btn">Cool!</button>
+					</div>
+				</Modal>
+			);
+		}
 		return (
 			<section ref="game" className="play">
 				<nav>
@@ -238,29 +285,7 @@ module.exports = React.createClass({
 						availableCommands={this.gameState.availableCommands[this.gameState.get('stage')]}
 						ref="commandBox" />
 				</div>
-				<Modal isOpen={this.state.exitModalOpen}>
-					<h1>Are you sure you want to exit this level?</h1>
-					<button type="button" onClick={this.cancelModal('exit')}>Cancel</button>
-					<button type="button" onClick={this.onConfirmExit}>Yes, Exit</button>
-				</Modal>
-				<Modal isOpen={this.state.powerupModalOpen}>
-					<div className="content">
-						<h1>{this.state.powerupModalOpen.command}</h1>
-						<p dangerouslySetInnerHTML={{__html: this.state.powerupModalOpen.description}}></p>
-					</div>
-					<div className="buttons">
-						<button type="button" onClick={this.cancelModal('powerup')} className="btn">Got it!</button>
-					</div>
-				</Modal>
-				<Modal isOpen={this.state.messageModalOpen}>
-					<div className="content">
-						<h1 dangerouslySetInnerHTML={{__html: this.state.messageModalOpen.title}}></h1>
-						<p dangerouslySetInnerHTML={{__html: this.state.messageModalOpen.body}}></p>
-					</div>
-					<div className="buttons">
-						<button type="button" onClick={this.cancelModal('message')} className="btn">Cool!</button>
-					</div>
-				</Modal>
+				{modal}
 			</section>
 		);
 	},

@@ -32,18 +32,21 @@
 	.content {
 		padding: 40px 40px 0 40px;
 		max-height: 437px;
-		overflow-x: scroll;
+		overflow-y: auto;
 	}
 
 	.buttons {
 		padding: 20px 40px 40px 40px;
-		max-height: 72px;
-		overflow-x: scroll;
 		line-height: 1em;
 	}
 
 	.btn {
 		font-size: 24px;
 		line-height: 1;
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 }

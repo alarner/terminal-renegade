@@ -51,23 +51,22 @@ module.exports = React.createClass({
 	keyDown: function(e) {
 		if(e.which == KEY.TAB) {
 			e.preventDefault();
-			console.log(1)
 			var path = null;
 			var command = this.refs.input.getDOMNode().value;
 			if(!command) return;
 			var args = _.filter(command.split(/\s+/), function(piece) {
 				return piece;
 			});
-			console.log(2)
+
 			var argv = minimist(args);
 			if(!argv._.length) return;
-			console.log(3)
+
 			var c = argv._[0].toLowerCase();
 
 			if(!this.props.availableCommands.get(c) || !powerups.hasOwnProperty(c)) {
 				return;
 			}
-			console.log(4)
+
 			try {
 				path = powerups[c].actions.getPath(argv, this.props.gameState);
 				if(!path) return;
@@ -76,20 +75,12 @@ module.exports = React.createClass({
 				return;
 			}
 
-			console.log(5)
-
 			var pieces = path.split('/');
-			console.log('pieces', pieces);
 			var search = pieces.pop();
-			console.log('search', search);
 			var parentPath = pieces.length === 1 && !pieces[0] ? '/' : pieces.join('/');
-			console.log('parentPath', parentPath);
-
-			console.log(6);
 
 			try {
 				var currentNode = clTools.getNodeFromPath(parentPath, this.props.gameState);
-				console.log(currentNode);
 				var options = _.filter(currentNode.children, function(child) {
 					return _.startsWith(child.name, search) && child.created;
 				});

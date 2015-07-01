@@ -1,5 +1,7 @@
 $primary-color: #0dc1bc;
 $primary-dark: #0c6f6d;
+$danger-color: #EB158E;
+$danger-dark: #565656;
 $off-light: #D9D6D2;
 $header-font: 'Orbitron';
 $paragraph-font: 'Metrophobic';
@@ -57,6 +59,12 @@ h4 {
 
 .btn {
 	@include btn-primary;
+
+	&.danger {
+		background-color: $danger-color;
+		border-right: 4px solid $danger-dark;
+		border-bottom: 4px solid $danger-dark;
+	}
 }
 
 .btn:hover {
