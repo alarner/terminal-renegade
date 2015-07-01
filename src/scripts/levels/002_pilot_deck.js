@@ -3,24 +3,22 @@ var globals = require('../globals');
 module.exports = {
 	number: 1,
 	name: 'Pilot Deck',
+	backgroundImage: '/images/level1_bg.png',
 	music: '/music/level1.mp3',
-	display: function() {
-		var graphics = new PIXI.Graphics();
-		graphics.beginFill(0xFFFF00);
-		// set the line style to have a width of 5 and set the color to red
-		graphics.lineStyle(5, 0xFF0000);
-		// draw a rectangle
-		graphics.drawRect(0, 0, globals.node.size.width-5, globals.node.size.height-5);
-		return graphics;
-	},
+	display: require('./node-styles/default'),
 	root: {
 		name: '/',
-		items: [],
-		children: [], // nodes go here
+		created: true,
+		type: 'directory',
+		items: ['exit', 'cd'],
 		itemsVisible: true,
-		messages: [],
-		children: [
-		]
+		messages: [
+			{
+				title: 'You found the `exit` powerup!',
+				body: '`exit` allows you to leave this area of the ship and return home.'
+			}
+		],
+		say: []
 	}
 }
 
