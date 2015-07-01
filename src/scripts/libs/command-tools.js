@@ -23,9 +23,11 @@ module.exports = {
 		return p;
 	},
 	getNodeFromPath: function(path, gameState) {
+		console.log('getNodeFromPath', path);
 		var currentNode = gameState.get('currentNode');
 
 		if(path.charAt(0) === '/') {
+			console.log('root');
 			path = path.substring(1);
 			currentNode = gameState.get('level').root;
 		}
