@@ -14,7 +14,7 @@ var powerups = require('../powerups');
 var homeLevel = renderTools.loadFreshLevel(require('../levels/_home'));
 
 var levels = {
-	'pilot_deck': require('../levels/002_pilot_deck'),
+	'pilot_deck': require('../levels/001_pilot_deck'),
 	'sewage_pipes': require('../levels/003_sewage_pipes'),
 	'biodome': require('../levels/004_biodome'),
 	'laboratory': require('../levels/005_experimental_facility'),

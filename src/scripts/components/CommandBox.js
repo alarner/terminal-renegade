@@ -98,6 +98,24 @@ module.exports = React.createClass({
 					this.refs.input.getDOMNode().value = newInput;
 				}
 				else if(options.length > 1){
+					var fill = '';
+					var done = (options[0].name.length <= pos);
+					var pos = search.length;
+					var currentChar = null;
+					while(!done) {
+						currentChar = options[0].name.charAt(pos);
+						for(var i=0; i<options.length; i++) {
+							if(options[i].name.length <= pos || options[i].name.charAt(pos) !== currentChar) {
+								done = true;
+								break;
+							}
+						}
+						if(!done) {
+							fill += currentChar;
+							pos++;
+						}
+					}
+					this.refs.input.getDOMNode().value += fill;
 					this.props.gameState.get('character').say('Your options are: '+_.map(options, function(child) {
 						return child.name;
 					}).join(', '));
