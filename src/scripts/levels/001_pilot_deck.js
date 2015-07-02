@@ -29,10 +29,17 @@ module.exports = {
 				name: 'terminal1',
 				created: true,
 				type: 'directory',
-				items: [],
+				items: [
+					'goal'
+				],
 				itemsVisible: true,
 				messages: [],
-				say: [],
+				say: [
+					{
+						message: 'Aha! There\'s one of the documents I\'m looking for. This will help me in my investigation.',
+						danger: false
+					}
+				],
 				children: [
 				]
 			},
@@ -45,6 +52,130 @@ module.exports = {
 				messages: [],
 				say: [],
 				children: [
+					{
+						name: 'nav_display',
+						created: true,
+						type: 'directory',
+						items: [],
+						itemsVisible: true,
+						messages: [],
+						say: [],
+						children: [
+							{
+								name: 'terminal3',
+								created: true,
+								type: 'directory',
+								items: [],
+								itemsVisible: true,
+								messages: [],
+								say: [],
+								children: [
+									{
+										name: 'paz',
+										created: true,
+										type: 'directory',
+										items: [],
+										itemsVisible: true,
+										messages: [],
+										say: [],
+										children: [
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						name: 'comm_chair',
+						created: true,
+						type: 'directory',
+						items: [],
+						itemsVisible: true,
+						messages: [],
+						say: [],
+						children: [
+							{
+								name: 'radio',
+								created: true,
+								type: 'directory',
+								items: [],
+								itemsVisible: true,
+								messages: [],
+								say: [],
+								children: [
+								]
+							}
+						]
+					},
+					{
+						name: 'weapons_stn',
+						created: true,
+						type: 'directory',
+						items: [
+							'goal'
+						],
+						itemsVisible: true,
+						messages: [],
+						say: [
+							{
+								message: 'Aha! There\'s one of the documents I\'m looking for. This will help me in my investigation.',
+								danger: false
+							}
+						],
+						children: [
+							{
+								name: 'terminal4',
+								created: true,
+								type: 'directory',
+								items: [],
+								itemsVisible: true,
+								messages: [],
+								say: [],
+								children: [
+									{
+										name: 'bar',
+										created: true,
+										type: 'directory',
+										items: [],
+										itemsVisible: true,
+										messages: [],
+										say: [],
+										children: [
+										]
+									},
+									{
+										name: 'baz',
+										created: true,
+										type: 'directory',
+										items: [
+											'goal'
+										],
+										itemsVisible: true,
+										messages: [],
+										say: [
+											{
+												message: 'Aha! There\'s one of the documents I\'m looking for. This will help me in my investigation.',
+												danger: false
+											}
+										],
+										children: [
+										]
+									},
+									{
+										name: 'zap',
+										created: true,
+										type: 'directory',
+										items: [],
+										itemsVisible: true,
+										messages: [],
+										say: [],
+										children: [
+										]
+									},
+								]
+							}
+						]
+					}
 				]
 			},
 
