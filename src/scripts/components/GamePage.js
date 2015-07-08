@@ -114,6 +114,7 @@ module.exports = React.createClass({
 				self.gameState.availableCommands[self.gameState.get('stage')].add({id: item});
 			});
 			node.items = [];
+			delete node._display;
 		}
 
 		if(node === homeLevel.root.children[0]) {

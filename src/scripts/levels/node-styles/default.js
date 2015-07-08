@@ -25,6 +25,39 @@ module.exports = function() {
 
 	container.addChild(sprite);
 
+	var i;
+	var item;
+	var itemTexture;
+	var itemSprite;
+	var positions = [
+		{
+			x: -52,
+			y: -40
+		},
+		{
+			x: 7,
+			y: -40
+		}
+	];
+	if(this.items && this.items.length) {
+		i = 0;
+		while(i < this.items.length && i < positions.length) {
+			item = this.items[i];
+			if(item === 'goal') {
+				itemTexture = PIXI.Texture.fromImage("../images/level1_item.png");
+				itemSprite = new PIXI.Sprite(itemTexture);
+				itemSprite.position.x = positions[i].x;
+				itemSprite.position.y = positions[i].y;
+				container.addChild(itemSprite);
+			}
+			else {
+	
+			}
+
+			i++;
+		}
+	}
+
 	var textParams = {
 		font : '18px Orbitron',
 		align : 'center',
