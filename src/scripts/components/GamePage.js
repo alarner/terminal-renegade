@@ -212,7 +212,7 @@ module.exports = React.createClass({
 
 		var powerupElements = this.gameState.availableCommands[this.gameState.get('stage')].map(function(pu) {
 			if(!powerups.hasOwnProperty(pu.id)) {
-				return <div>bad powerup {pu.id}</div>
+				return <div key={pu.id}>bad powerup {pu.id}</div>
 			}
 			var powerup = powerups[pu.id];
 			return (
