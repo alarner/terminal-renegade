@@ -6,6 +6,7 @@ module.exports = {
 	backgroundImage: '/images/level1_bg.png',
 	music: '/music/level1.mp3',
 	display: require('./node-styles/default')(1),
+	numGoals: 3,
 	root: {
 		name: '/',
 		created: true,

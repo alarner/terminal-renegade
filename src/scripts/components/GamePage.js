@@ -27,7 +27,8 @@ module.exports = React.createClass({
 			modals: {
 				exit: false,
 				powerup: false,
-				message: false
+				message: false,
+				win: false
 			}
 		};
 	},
@@ -58,6 +59,7 @@ module.exports = React.createClass({
 		this.gameState.on('start', this.onStartLevel);
 		this.gameState.on('change', this.onGameStateChanged);
 		this.gameState.on('change:currentNode', this.onNodeChanged);
+		this.gameState.on('change:goalsComplete', this.onGoalsCompleteChanged);
 		this.gameState.on('closeModals', this.onCloseModals);
 		this.gameState.availableCommands.home.on('add', this.onNewCommand);
 		this.gameState.availableCommands.play.on('add', this.onNewCommand);
@@ -144,6 +146,11 @@ module.exports = React.createClass({
 			console.log('go to outer space');
 		}
 	},
+	onGoalsCompleteChanged: function() {
+		if(this.gameState.get('goalsComplete') >= this.gameState.get('level').numGoals) {
+			this.setState({modals: {win: true}});
+		}
+	},
 	onStartLevel: function(e) {
 		if(this.gameState.get('stage') !== 'home') return;
 		var self = this;
@@ -174,15 +181,17 @@ module.exports = React.createClass({
 		}
 	},
 	onPowerupModalOpen: function(command) {
-		console.log('onPowerupModalOpen');
 		var self = this;
 		return function(e) {
 			e.preventDefault();
-			console.log('test');
 			self.setState({modals: {powerup: powerups[command]}});
 		};
 	},
 	onCloseModals: function() {
+		console.log('onCloseModals', this.state.modals);
+		if(this.state.modals.win) {
+			this.goHome();
+		}
 		this.setState({modals: this.getInitialState().modals});
 	},
 	cancelModal: function(name) {
@@ -272,6 +281,19 @@ module.exports = React.createClass({
 					</div>
 					<div className="buttons">
 						<button type="button" onClick={this.cancelModal('message')} className="btn">Cool!</button>
+					</div>
+				</Modal>
+			);
+		}
+		else if(this.state.modals.win) {
+			modal = (
+				<Modal isOpen={this.state.modals.win} gameState={this.gameState}>
+					<div className="content">
+						<h1>Success!</h1>
+						<p>You have completed all of the goals for this level. Nice job!</p>
+					</div>
+					<div className="buttons">
+						<button type="button" onClick={this.onCloseModals} className="btn">Cool!</button>
 					</div>
 				</Modal>
 			);

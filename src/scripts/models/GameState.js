@@ -13,12 +13,6 @@ module.exports = Backbone.Model.extend({
 		message: false
 	},
 	save: function() {
-		console.log('GameState save');
-		// var obj = this.toJSON();
-		// delete obj.character;
-		// delete obj.level;
-		// obj.history = obj.history.slice(0, 50); // only store last 50
-		// obj.currentNode = commandTools.getPathFromNode(obj.currentNode);
 		var obj = {
 			availableCommands: {
 				home: this.availableCommands.home.toJSON(),
@@ -42,6 +36,5 @@ module.exports = Backbone.Model.extend({
 				play: new CommandCollection(obj.availableCommands.play)
 			}
 		}
-		console.log(obj);
 	}
 })

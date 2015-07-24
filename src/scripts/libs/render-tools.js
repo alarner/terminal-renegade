@@ -135,7 +135,6 @@ module.exports = {
 		var level = gameState.get('level');
 
 		var d = node.display ? node.display() : level.display.call(node);
-		console.log(d);
 		node._display = d;
 		return node._display;
 	},
