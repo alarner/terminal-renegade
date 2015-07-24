@@ -2,7 +2,7 @@ var globals = require('../globals');
 module.exports = {
 	backgroundImage: '/images/homepage_bg.png',
 	music: '/music/story_and_home.mp3',
-	display: require('./node-styles/default'),
+	display: require('./node-styles/default')(0),
 	root:{
 		name: '/',
 		created: true,

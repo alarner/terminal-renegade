@@ -5,12 +5,12 @@ module.exports = {
 	name: 'Pilot Deck',
 	backgroundImage: '/images/level1_bg.png',
 	music: '/music/level1.mp3',
-	display: require('./node-styles/default'),
+	display: require('./node-styles/default')(1),
 	root: {
 		name: '/',
 		created: true,
 		type: 'directory',
-		items: ['exit', 'cd', 'mkdir'],
+		items: ['exit', 'cd'],
 		itemsVisible: true,
 		messages: [
 			{
@@ -47,7 +47,9 @@ module.exports = {
 				name: 'terminal2',
 				created: true,
 				type: 'directory',
-				items: [],
+				items: [
+					'mkdir'
+				],
 				itemsVisible: true,
 				messages: [],
 				say: [],

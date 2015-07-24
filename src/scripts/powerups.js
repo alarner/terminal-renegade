@@ -2,7 +2,7 @@ module.exports = {
 	cd: {
 		command: 'cd',
 		actions: require('./commands/cd'),
-		icon: '',
+		icon: '/images/powerups/cd.png',
 		description: '<p>Allows you to move from one place to another. You must\
 		specify a path from where you would like to start to where you would\
 		like to end up. Here are some examples of different types of paths that\
@@ -36,25 +36,22 @@ module.exports = {
 	mkdir: {
 		command: 'mkdir',
 		actions: require('./commands/mkdir'),
-		icon: '',
+		icon: '/images/powerups/mkdir.png',
 		description: '',
 		man: ''
 	},
 	open: {
 		command: 'open',
 		actions: require('./commands/open'),
-		icon: '',
+		icon: '/images/powerups/open.png',
 		description: '',
 		man: ''
 	},
 	exit: {
 		command: 'exit',
 		actions: require('./commands/exit'),
-		icon: '',
+		icon: '/images/powerups/exit.png',
 		description: '',
 		man: ''
-	},
-	goal_level1: {
-		icon: ''
 	}
 };
