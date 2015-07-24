@@ -53,5 +53,8 @@ module.exports = {
 		icon: '',
 		description: '',
 		man: ''
+	},
+	goal_level1: {
+		icon: ''
 	}
 };

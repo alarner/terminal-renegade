@@ -112,11 +112,19 @@ module.exports = React.createClass({
 			this.setState({modals: {message: message}});
 		}
 
+		var goalsComplete = self.gameState.get('goalsComplete');
+
 		if(node.items && node.items.length) {
 			_.each(node.items, function(item) {
-				self.gameState.availableCommands[self.gameState.get('stage')].add({id: item});
+				if(item === 'goal') {
+					goalsComplete++;
+				}
+				else {
+					self.gameState.availableCommands[self.gameState.get('stage')].add({id: item});
+				}
 			});
 			node.items = [];
+			self.gameState.set({goalsComplete: goalsComplete});
 			delete node._display;
 		}
 
@@ -158,7 +166,7 @@ module.exports = React.createClass({
 			this.gameState.set({
 				stage: 'play',
 				level: newLevel,
-				itemsCollected: 0,
+				goalsComplete: 0,
 				currentNode: newLevel.root
 			});
 			this.props.music.set({url: newLevel.music});
@@ -193,7 +201,7 @@ module.exports = React.createClass({
 		this.gameState.set({
 			stage: 'home',
 			level: homeLevel,
-			itemsCollected: 0,
+			goalsComplete: 0,
 			currentNode: homeLevel.root
 		});
 		this.forceUpdate();
