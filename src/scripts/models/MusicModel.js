@@ -3,6 +3,6 @@ Backbone.$ = require('jquery');
 module.exports = Backbone.Model.extend({
 	defaults: {
 		url: '',
-		on: true
+		on: false
 	}
 })

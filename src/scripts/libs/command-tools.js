@@ -60,6 +60,20 @@ module.exports = {
 		return currentNode;
 	},
 
+	getPathFromNode: function(node) {
+		if(!node) return null;
+		var path = node.name;
+		if(path === '/') path = '';
+		while(node._parent) {
+			node = node._parent;
+			path = '/'+node.name;
+		}
+		if(!path.length || !path.charAt(0) === '/') {
+			path = '/' + path;
+		}
+		return path;
+	},
+
 	getPathFromCommand: function(command) {
 
 	},

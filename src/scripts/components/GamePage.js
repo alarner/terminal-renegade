@@ -6,7 +6,7 @@ var CommandBox = require('./CommandBox');
 var Modal = require('./Modal');
 var GameState = require('../models/GameState');
 var CommandModel = require('../models/CommandModel');
-var CommandCollection = require('../collections/CommandCollection');
+// var CommandCollection = require('../collections/CommandCollection');
 var renderTools = require('../libs/render-tools');
 var Character = require('../libs/character');
 var powerups = require('../powerups');
@@ -34,10 +34,11 @@ module.exports = React.createClass({
 	componentWillMount: function() {
 		var self = this;
 		this.gameState = new GameState();
-		this.gameState.availableCommands = {
-			home: new CommandCollection(),
-			play: new CommandCollection()
-		};
+		this.gameState.load();
+		// this.gameState.availableCommands = {
+		// 	home: new CommandCollection(),
+		// 	play: new CommandCollection()
+		// };
 		this.renderer = new PIXI.WebGLRenderer(
 			globals.viewport.width,
 			globals.viewport.height
@@ -79,12 +80,14 @@ module.exports = React.createClass({
 		this.goHome();
 	},
 	onGameStateChanged: function() {
+		this.gameState.save();
 		renderTools.draw(
 			this.stages[this.gameState.get('stage')],
 			this.gameState
 		);
 	},
 	onNewCommand: function() {
+		this.gameState.save();
 		this.forceUpdate();
 	},
 	onNodeChanged: function() {

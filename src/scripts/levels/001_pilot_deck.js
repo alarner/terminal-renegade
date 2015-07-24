@@ -10,7 +10,7 @@ module.exports = {
 		name: '/',
 		created: true,
 		type: 'directory',
-		items: ['exit', 'cd'],
+		items: ['exit', 'cd', 'mkdir'],
 		itemsVisible: true,
 		messages: [
 			{
