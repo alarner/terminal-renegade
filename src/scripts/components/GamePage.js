@@ -15,7 +15,7 @@ var homeLevel = renderTools.loadFreshLevel(require('../levels/_home'));
 
 var levels = {
 	'pilot_deck': require('../levels/001_pilot_deck'),
-	'sewage_pipes': require('../levels/003_sewage_pipes'),
+	'sewage_pipes': require('../levels/002_sewage_pipes'),
 	'biodome': require('../levels/004_biodome'),
 	'laboratory': require('../levels/005_experimental_facility'),
 	'outer_space': require('../levels/006_outer_space')
@@ -189,7 +189,14 @@ module.exports = React.createClass({
 	},
 	onCloseModals: function() {
 		console.log('onCloseModals', this.state.modals);
+		var level = this.gameState.get('level').number;
 		if(this.state.modals.win) {
+			console.log('WIN', level);
+			if(level === 1) {
+				console.log(homeLevel.root.children[1].children[1]);
+				homeLevel.root.children[1].children[1].created = true;
+				delete homeLevel.root.children[1].children[1]._display;
+			}
 			this.goHome();
 		}
 		this.setState({modals: this.getInitialState().modals});
